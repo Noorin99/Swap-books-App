@@ -1,0 +1,64 @@
+.header {
+  width: 90%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.header_elements {
+  text-decoration: none;
+  color: black;
+}
+
+#logo {
+  margin-top: 10px;
+}
+
+.links {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  font-family: "Cairo", sans-serif;
+}
+
+.leaf {
+  width: 110px;
+  height: 80px;
+  border-radius: 100% 0;
+  border: none;
+  background-color: #00a560;
+  transform: rotate(35deg);
+  cursor: pointer;
+}
+
+.register_button {
+  position: relative;
+  height: 80px;
+}
+
+.leaf_inside {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  transform: translateY(-50%);
+  color: white;
+  cursor: pointer;
+  font-family: "Cairo", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.header_elements:hover {
+  color: #00a560;
+}
+
+.leaf:hover {
+  box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+  transition: 0.3s ease-in-out;
+}

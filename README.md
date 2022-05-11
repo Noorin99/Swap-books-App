@@ -1,45 +1,70 @@
-# User stories
+# Getting Started with Create React App
 
-## **As a visitor**
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-1 - **I want to** view the books without registering to the platform, **so** I decide if I want to register for it. 
+## Available Scripts
 
-2- **I want to** search for the specific books, **so** I can reach my book faster.
+In the project directory, you can run:
 
-3- **I want to** filter the books by language and category, **so** I can find the suitable book for me.
+### `npm start`
 
-4-  **I want to** register to the platform by ( email / google / facebook ), **so** I can use the swapping feature.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## **As a user**
-1- **I want to** log in/log out to my account on the platform, **so** I can access it.
+### `npm test`
 
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-2- **I want to** have a profile, **so** I can manage my borrowed and favorite books.
+### `npm run build`
 
-3- **I want to** edit my profile information, **so** I can have an uptodate profile.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-4- **I want to** search for the specific books, **so** I can reach my book faster.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-5- **I want to** filter the books by language and category, **so** I can find the suitable book for me.
+### `npm run eject`
 
-6- **I want to** view the details(name - author - description) of the book, **so** I can decide if it's the suitable book.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-7- **I want to** view all the users who have the book for swapping, so I can contact one of them.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-8- **I want to** visit the  user's profile who have a specific book, **so** I can get to know him/her better.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-9- **I want to** view with the book's owners contact information/location, **so** I can agree with him/her about swapping
+## Learn More
 
-10- **I want to** add books to the favorite list, **so** I can save it for later times.
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-11- **I want to** be notified once my favorites are posted for swapping, **so** I can decide if I want to swap them.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-12- **I want to** be notifed when I successfully add a book, **so** I can trust the platform.
+### Code Splitting
 
-13- **I want to** post books by searching for the ISBN and clicking post, **so** I can offer it for swappers.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-14- **I want to** apply a form of the book's information in case I couldn't find the wanted ISBN avaliable, **so** I can offer it for swappers.
+### Analyzing the Bundle Size
 
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
