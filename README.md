@@ -42,4 +42,3 @@
 13- **I want to** post books by searching for the ISBN and clicking post, **so** I can offer it for swappers.
 
 14- **I want to** apply a form of the book's information in case I couldn't find the wanted ISBN avaliable, **so** I can offer it for swappers.
-

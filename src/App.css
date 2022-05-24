@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  /* Fonts */
+  --cairo: "Cairo", sans-serif;
+  --elmessiri: "El Messiri", sans-serif;
+
+  /* Colors */
+  --green: #00a560;
+  --darkGreen: #0d4e32;
+  --black: #000000;
+  --black2: #231f20;
+  --gray: #a09c9c;
+  --white: #ffffff;
+  --accentColor: #5630c1;
+
+  /* Fonts sizes */
+  --titles: 2.5rem;
+}
+
+body {
+  font-family: var(--cairo);
+}

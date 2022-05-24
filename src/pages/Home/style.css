@@ -1,0 +1,7 @@
+.section_1{
+    height: 88vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
