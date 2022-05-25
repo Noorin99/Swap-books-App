@@ -21,7 +21,7 @@ const Nav = () => {
         <Link className="header_elements" component={Link} to="/">
           <span>من نحن؟</span>
         </Link>
-        <Link className="header_elements" component={Link} to="/">
+        <Link className="header_elements" component={Link} to="/login">
           <span>سجل دخول</span>
         </Link>
       </div>
