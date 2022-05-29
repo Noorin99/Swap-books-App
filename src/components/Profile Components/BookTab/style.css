@@ -1,0 +1,17 @@
+.addbook{
+    width: 100%;
+    height: 100%;
+   align-items: center;
+   justify-content: center;
+   display: flex;
+   flex-direction: column;
+    
+}
+.addbook h1{
+    font-size: 18px;
+    margin: 15px;
+}
+.addbook p{
+    font-size: 15px;
+    padding: 5px;
+}
