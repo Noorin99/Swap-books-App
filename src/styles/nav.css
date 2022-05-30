@@ -1,0 +1,81 @@
+nav {
+    height: 12vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background-color: var(--white);
+    overflow: hidden;
+    box-shadow: 0 .5px 7px rgba(0, 0, 0, 0.068);
+}
+
+.molhem_logo {
+    height: 12vh;
+    position: relative;
+}
+
+.molhem_logo img {
+    height: 11vh;
+}
+
+.molhem_logo>div {
+    position: absolute;
+    bottom: 4px;
+}
+
+.molhem_logo:hover>div {
+    color: var(--green);
+}
+
+.register_button {
+    height: 11vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cewnter_title_register {
+    position: absolute;
+    color: var(--white);
+}
+
+
+
+.menu {
+    display: flex;
+}
+
+
+.header_elements {
+    margin: 0 5px;
+    padding: 3px 15px;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .25s ease-in-out;
+    position: relative;
+}
+
+.header_elements:hover {
+    color: var(--green);
+}
+
+.header_elements::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    width: 0;
+    background-color: var(--green);
+    height: 1.5px;
+    border-radius: 7px;
+    transition: .3s ease-in-out;
+}
+
+.header_elements:hover::after {
+    width: 70%;
+}

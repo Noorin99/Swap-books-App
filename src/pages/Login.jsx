@@ -1,10 +1,9 @@
 import React from "react";
-import Picture from "../../assets/images/community.svg";
-import Google from "../../assets/icons/google.svg";
-import Facebook from "../../assets/icons/facebook.svg";
-import "./style.css";
+import Picture from "../assets/images/community.svg";
+import Google from "../assets/icons/google.svg";
+import Facebook from "../assets/icons/facebook.svg";
 
-function index() {
+function Login() {
   return (
     <>
       <div className="container">
@@ -40,4 +39,4 @@ function index() {
   );
 }
 
-export default index;
+export default Login;
