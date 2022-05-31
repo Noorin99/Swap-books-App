@@ -10,7 +10,7 @@ nav {
     padding: 0 30px;
     background-color: var(--white);
     overflow: hidden;
-    box-shadow: 0 .5px 7px rgba(0, 0, 0, 0.068);
+    /* box-shadow: 0 .5px 7px rgba(0, 0, 0, 0.068); */
 }
 
 .molhem_logo {
@@ -42,8 +42,6 @@ nav {
     position: absolute;
     color: var(--white);
 }
-
-
 
 .menu {
     display: flex;
@@ -78,4 +76,30 @@ nav {
 
 .header_elements:hover::after {
     width: 70%;
+}
+
+/* flow menu */
+.flow_menu {
+    position: fixed;
+    left: 0;
+    width: 100px;
+    top: 50%;
+    transform: translate(-30%, -50%);
+    user-select: none;
+    cursor: pointer;
+}
+
+.title_menu_flow {
+    position: absolute;
+    top: 44%;
+    right: -30px;
+    width: 150px;
+    transform: rotate(-90deg);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--white);
+    font-family: var(--elmessiri);
+    font-size: var(--sub_title);
+
 }
