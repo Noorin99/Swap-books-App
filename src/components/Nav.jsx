@@ -1,6 +1,6 @@
-import Logo from "../assets/icons/Logo.svg";
 import flowernav from "../assets/icons/flowernav.svg";
 import { Link } from "react-router-dom";
+import Logo from "../assets/icons/Logo.svg";
 import { ReactComponent as Backmenuflow } from "../assets/icons/backmenuflow.svg";
 import { ReactComponent as Menu } from "../assets/icons/menu.svg";
 

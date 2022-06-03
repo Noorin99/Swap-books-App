@@ -18,12 +18,21 @@
   --white: #ffffff;
   --accentColor: #5630c1;
 
+  /* colors with hover */
+
+  --green_hover: #00a560e7;
+
   /* hange names */
   --black3: #4D4D4D;
 
   /* Fonts sizes */
   --titles: 2.3rem;
+  --titles_med: 1.9rem;
   --sub_title: 1.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -47,4 +56,14 @@ img {
 main {
   margin-top: 12vh;
   min-height: 88vh;
+}
+
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
 }
