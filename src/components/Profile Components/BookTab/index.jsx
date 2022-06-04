@@ -19,7 +19,6 @@ function BookTab() {
             <TabList
               onChange={handleChange}
               indicatorColor="secondary"
-
               textColor="primary"
             >
               <Tab label="أضف كتاباً" value="1" />
@@ -29,21 +28,119 @@ function BookTab() {
           </Box>
           <TabPanel value="1">
             <div className="addbook">
-              
-            <TextField  style = {{width: 540}} id="outlined-basic" label="ابحث عن كتابك باستخدام الاسم, ISBN" size="medium" width="150px" variant="outlined" />           
-            <h1 >لإضافة كتاب جديد</h1>
-            <div className="steps">
-            <p>قم بالبحث عن الكتاب باستخدام ( الإسم - ISBN ) في مربع البحث</p>
-            <p>قم بالضغط على الكتاب </p>
-            <p>في صفحة الكتاب, قم بالضغط على زر أعط كتاب لإعطاء كتاب جديد  </p>
-            </div> </div>
+              <TextField
+                style={{ width: 540 }}
+                id="outlined-basic"
+                label="ابحث عن كتابك باستخدام الاسم, ISBN"
+                size="medium"
+                width="150px"
+                variant="outlined"
+              />
+              <h1>لإضافة كتاب جديد</h1>
+              <div className="steps">
+                <p>
+                  قم بالبحث عن الكتاب باستخدام ( الإسم - ISBN ) في مربع البحث
+                </p>
+                <p>قم بالضغط على الكتاب </p>
+                <p>
+                  في صفحة الكتاب, قم بالضغط على زر أعط كتاب لإعطاء كتاب جديد{" "}
+                </p>
+              </div>{" "}
+            </div>
           </TabPanel>
-          <TabPanel value="2">العنصر الثاني</TabPanel>
+          <TabPanel value="2">
+            <div className="favBooks">
+            <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="http://www.4read.net/uploads/images/1480158996.jpg"
+                     className="bookImg"
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg"
+                      className="bookImg"
+
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="http://www.4read.net/uploads/images/1480158996.jpg"
+                     className="bookImg"
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg"
+                      className="bookImg"
+
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>    <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="http://www.4read.net/uploads/images/1480158996.jpg"
+                     className="bookImg"
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg"
+                      className="bookImg"
+
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="http://www.4read.net/uploads/images/1480158996.jpg"
+                     className="bookImg"
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+                <div className="singleBook">
+                  <div xs={3}>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg"
+                      className="bookImg"
+
+                      alt=""
+                    />
+                  </div>
+                  <button className="btn-delete">حذف</button>
+                </div>
+            </div>
+          </TabPanel>
           <TabPanel value="3"> العنصر الثالث</TabPanel>
         </TabContext>
       </Box>
     </>
   );
 }
+
 
 export default BookTab;
