@@ -1,0 +1,279 @@
+.section_home {
+    min-height: 88vh;
+}
+
+.top_head_s1 {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: calc(88vh - 90px);
+    font-family: var(--elmessiri);
+}
+
+.title_s1_home {
+    font-size: var(--titles);
+    width: 50%;
+    padding: 10px;
+    position: relative;
+}
+
+.title_s1_home .boros {
+    color: var(--darkGreen);
+}
+
+.title_s1_home::before {
+    background-color: var(--darkGreen);
+    content: '';
+    position: absolute;
+    width: 170px;
+    height: 5px;
+    border-radius: 20px;
+    top: 0;
+    right: 0;
+    transition: 1s ease-in-out;
+}
+
+.title_s1_home:hover::before {
+    width: 60%;
+}
+
+
+.lines_s1 {
+    width: 300px;
+    height: 150px;
+    position: relative;
+}
+
+.line_s1 {
+    position: absolute;
+    height: 1px;
+    border-radius: 10px;
+    background-color: var(--black3);
+    transform: rotate(-45deg);
+}
+
+.line_s1.l1 {
+    width: 52px;
+    top: 36%;
+    right: 30%;
+}
+
+.line_s1.l2 {
+    width: 161px;
+    top: 65%;
+    right: 14%;
+}
+
+.line_s1.l3 {
+    width: 58px;
+    top: 90%;
+    right: 35%;
+}
+
+.line_s1.l4 {
+    width: 80px;
+    top: 87%;
+    right: 14%;
+}
+
+.cover_s1_home {
+    height: 100%;
+    width: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+.go_crolling {
+    padding: 10px;
+    height: 90px;
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.content_scroll_down {
+    height: 100%;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content_scroll_down svg {
+    width: 50px;
+    transition: .3s ease-in-out;
+    height: 50px;
+}
+
+
+.content_scroll_down:hover svg {
+    transform: translateY(10px);
+}
+
+/* section 2 */
+
+.group_s2 {
+    margin-top: 40px;
+    height: 160px;
+}
+
+.group_s2 svg {
+    height: 100%;
+}
+
+
+.cover_s2_home {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    /* background-color: red; */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.man_who_thinking {
+    width: 350px;
+    height: 350px;
+}
+
+
+.top_thinks_circle {
+    position: absolute;
+    top: 15px;
+    right: 20%;
+    height: 100px;
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    transform: rotate(10deg);
+}
+
+.top_thinks_circle svg {
+    width: 60px;
+    height: 60px;
+}
+
+
+
+.top_thinks_circle svg:nth-child(2) {
+    height: 100%;
+}
+
+.wave_ {
+    position: absolute;
+    width: 200px;
+}
+
+.wave_1 {
+    bottom: 10px;
+    right: 25%;
+}
+
+.wave_2 {
+    bottom: 0;
+    right: 26%;
+}
+
+.wave_3 {
+    bottom: 22%;
+    right: 5%;
+}
+
+.wave_4 {
+    bottom: 30%;
+    right: 0;
+}
+
+
+
+
+/* section 3 */
+
+.content_section_3 {
+    display: flex;
+    /* background-color: red; */
+    height: calc(88vh - 90px);
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.btn_give_book_s3 {
+    background-color: var(--green);
+    width: 320px;
+    height: 60px;
+    border-radius: 35px;
+}
+
+.btn_give_book_s3:hover {
+    background-color: var(--green_hover);
+}
+
+
+.btn_give_book_s3 button {
+    color: var(--white);
+    font-size: var(--sub_title);
+    font-family: var(--elmessiri);
+}
+
+.cover_give_book_s3 {
+    /* background-color: blue; */
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover_give_book_s3 svg {
+    width: 400px;
+}
+
+
+/* section 4 */
+
+.section_4 {
+    min-height: 88vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.back_threes {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 300px;
+}
+
+
+
+
+
+.title_s4 {
+    font-size: var(--titles_med);
+    font-family: var(--elmessiri);
+    width: 70%;
+    text-align: center;
+}
+
+
+.greendetd {
+    color: var(--green);
+}
+
+
+.advicegroup_s4 {
+    width: 400px;
+
+    height: 300px;
+}
