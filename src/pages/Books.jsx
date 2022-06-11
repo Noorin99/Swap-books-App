@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from "axios"
 import "../styles/books.css"
+import Input from '@mui/material/Input';
+import { Select } from "@mui/material";
 function Books() {
 
   const [filter, setFilter ]= useState("");
@@ -63,22 +65,22 @@ console.log(result+ "ressssssssssssssssssssssssssssssssssssss")
     <div>
       <form >
          <div >
-          <input 
+          <Input 
             type="text" onChange={handleChange}
             className="input-control"
             placeholder=" ابحث عن كتابك من خلال اسمه او  ISBN"
             autoComplete="off" >
-          </input>
-          <select className="filter1" value="اللغة">
+          </Input>
+          <Select className="filter1" value="اللغة">
             <option value="volvo">en</option>
             <option value="saab">ar</option>
-          </select >
-          <select className="filter2" value={selectedCategory} onChange={handleCategoryChange}>
+          </Select >
+          <Select className="filter2" value={selectedCategory} onChange={handleCategoryChange}>
             <option value="Young Adult Fiction">Young Adult Fiction</option>
             <option value="Juvenile Fiction">Juvenile Fiction</option>
             <option value="Fiction">Fiction</option>
             <option value="Computers">Computers</option>
-          </select>
+          </Select>
         </div>
       </form>
       { result?.map(book =>(  
