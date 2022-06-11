@@ -1,6 +1,9 @@
+import React, { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import { auth } from "./firebase/config";
 import AddBook from "./pages/AddBook";
 import Book from "./pages/Book";
 import Books from "./pages/Books";
@@ -12,8 +15,24 @@ import Profile from "./pages/Profile";
 import ProfileDemo from "./pages/ProfileDemo";
 import Signup from "./pages/Signup";
 import "./styles";
+import { useDispatch } from "react-redux";
+import { setUserStore } from "./stores/User";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkAuth = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log(" logged ", user.uid);
+        dispatch(setUserStore({ id: user.uid }));
+      } else {
+        console.log("not logged");
+      }
+    });
+    return checkAuth;
+  }, []);
+
   return (
     <Router>
       <Nav />

@@ -2,7 +2,7 @@
     display: flex;
 }
 
-.form {
+.form_modal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,36 +19,27 @@
     margin-top: 8px;
 }
 
-.btn {
+.btn_login_With {
     font-family: var(--cairo);
     font-weight: bold;
     color: var(--black);
     background-color: var(--white);
     border-radius: 10px;
-    border: 1px #a09c9c solid;
-    width: 50%;
-    height: 40px;
+    border: 1px #bebebe solid;
+    width: 400px;
+    height: 50px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    gap: 10px;
 }
 
-.inpt {
-    width: 50%;
-    height: 30px;
-    border: 1px #a09c9c solid;
-    background-color: var(--white);
-    border-radius: 10px;
-    cursor: pointer;
-    outline: none;
+.btn_login_With:hover {
+    background-color: #eee;
 }
 
-::placeholder {
-    font-family: var(--cairo);
-    padding: 10px;
-    font-size: 13px;
+.input_login {
+    width: 400px;
 }
 
 .login_button {
@@ -58,15 +49,49 @@
     background-color: var(--green);
     border-radius: 10px;
     border: none;
-    width: 50%;
-    height: 35px;
+    width: 400px;
+    height: 45px;
     cursor: pointer;
     margin-top: 15px;
 }
 
-.img {
+.cover_login {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.bowl_avatar_nav {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: var(--shad_3);
+    cursor: pointer;
+}
+
+.bowavanavcon {
+    position: relative;
+}
+
+.pop_option_avatar {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    left: 0;
+    top: 7vh;
+    width: 150px;
+    border-radius: 3px;
+    box-shadow: var(--shad_3);
+}
+
+
+.pop_option_avatar>button {
+    margin-bottom: 3px;
+    background-color: rgba(243, 243, 243, 0.795);
+    height: 30px;
+}
+
+.pop_option_avatar>button:hover {
+    background-color: rgb(235, 235, 235);
 }

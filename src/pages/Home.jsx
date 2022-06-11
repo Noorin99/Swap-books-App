@@ -8,7 +8,6 @@ import { ReactComponent as Givebook } from "../assets/icons/givebook.svg";
 import { ReactComponent as Hands } from "../assets/icons/hands.svg";
 import { ReactComponent as Groupfriends } from "../assets/icons/groupfriends.svg";
 import { ReactComponent as Backthree } from "../assets/icons/backthree.svg";
-import { useParallax } from "react-scroll-parallax";
 
 function Home() {
   const GoNextSection = ({ go }) => {
@@ -68,9 +67,7 @@ function Home() {
               <Circlethink />
               <Circlethink />
             </div>
-
             <Loopthink className="man_who_thinking" />
-
             <Wave1 className="wave_ wave_1" />
             <Wave1 className="wave_ wave_2" />
             <Wave1 className="wave_ wave_3" />
