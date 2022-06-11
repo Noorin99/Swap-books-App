@@ -1,83 +1,92 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { FaFacebookF } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BiLocationPlus } from "react-icons/bi";
+import Modal from "../../Modal";
 import "./style.css";
+import { Box } from "@mui/material";
 function UserSec() {
-  const [userData, setUserData] = React.useState({});
+  const [userData, setUserData] = React.useState({
+    name: "لورينا محمد",
+    email: "mail@mail.com",
+    location:"رفح",
+    facebook:"facebook.com",
+  });
 
-  const handleAddUser = () => {
-    const newUserData = { ...userData };
-    newUserData.name = "";
-    newUserData.email = "";
-    newUserData.address = "";
-    setUserData(newUserData);
-  };
+
+
+
+ 
+    
+   
 
   return (
     <>
-      {Object.keys(userData).length > 0 ? (
-        <div className="wholepage">
-          <div className="userpage">
+    {userData.description ? (
+      
+      <div className="wholepage">
+        <div className="userpage">
             <img
               className="userImg"
               src="https://images.complex.com/complex/images/c_scale,f_auto,q_auto,w_1920/fl_lossy,pg_1/ok26lkxxcptihvwljzaw/girl-in-red?fimg-ssr-default"
               alt=""
             />
-            <a href="/edit" className="editdata">
+          {/* <a href="/edit" className="editdata">
               تعديل المعلومات الشخصية
-            </a>
+            </a> */}
           </div>
 
           <div className="content">
-            <p className="username">لورينا محمد</p>
-            <p className="userdesc">كاتبة محتوى اهتم بالروايات العربية</p>
+            <p className="username">{userData.name}</p>
+            <p className="userdesc">{userData.description}</p>
             <ul>
               <li>
-                <MdEmail color="00A560" />
-                <span className="useremail">lorena@gmail.com</span>
+                <MdEmail color="00A560" /> <span className="useremail">{userData.email}</span>
               </li>
               <li>
                 <FaFacebookF color="00A560" />
-                <span className="userfb">https://www.facebook.com/lorina</span>
+                <span className="userfb">{userData.facebook}</span>
               </li>
 
               <li>
                 <BiLocationPlus color="00A560" />
-                <span className="usercity">خان يونس</span>
+                <span className="usercity">{userData.location}</span>
               </li>
             </ul>
           </div>
+      </div>
+    ) : (
+      <div className="allpage">
+      <div className="wholepage">
+      <div className="userpage">
+          <img
+            className="userImg"
+            src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
+            alt=""
+          />
         </div>
-      ) : (
-        <div className="allpage">
-          <div className="wholepage">
-            <div className="userpage">
-              <img
-                className="userImg"
-                src="https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg"
-                alt=""
-              />
-            </div>
 
-            <div className="content">
-              <p className="username">لورينا محمد</p>
-              <ul>
-                <li>
-                  <MdEmail color="00A560" />
-                  <span className="useremail">lorena@gmail.com</span>
-                </li>
-                <li>قم بإنشاء ملفك الشخصي لتحصل على المزيد من الأصدقاء</li>
-              </ul>
-            </div>
-          </div>
-          <div className="edditbtn">
-            <button className="createprofile" onClick={handleAddUser}>
-              إنشاء ملفك الشخصي
-            </button>
-          </div>
+        <div className="content">
+        <p className="username">{userData.name}</p>
+          <ul>
+            <li>
+            <MdEmail color="00A560" /> <span className="useremail">{userData.email}</span>
+            </li>
+          <li>
+          قم بإنشاء ملفك الشخصي لتحصل على المزيد من الأصدقاء   
+          </li>
+          </ul>
         </div>
-      )}
+      
+    </div>
+      <div className="edditbtn">
+      <Box sx={{ mt: "auto", ml: 2, mb: 2 }}>
+          <Modal  />
+        </Box>
+    </div>
+    </div>
+    )}
     </>
   );
 }
