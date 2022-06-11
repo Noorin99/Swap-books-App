@@ -1,10 +1,14 @@
+import React from "react";
 import flowernav from "../assets/icons/flowernav.svg";
 import { Link } from "react-router-dom";
 import Logo from "../assets/icons/Logo.svg";
 import { ReactComponent as Backmenuflow } from "../assets/icons/backmenuflow.svg";
 import { ReactComponent as Menu } from "../assets/icons/menu.svg";
+import { useSelector } from "react-redux";
+import PopAvatar from "./PopAvatar";
 
 function Nav() {
+  const { id, avatar } = useSelector((state) => state.User);
   return (
     <nav>
       <Link to="/" className="molhem_logo">
@@ -26,16 +30,22 @@ function Nav() {
         <Link className="header_elements" to="/">
           <span>من نحن؟</span>
         </Link>
-        <Link className="header_elements" to="/login">
-          <span>سجل دخول</span>
-        </Link>
+        {!id && (
+          <Link className="header_elements" to="/login">
+            <span>سجل دخول</span>
+          </Link>
+        )}
       </div>
-      <Link to="/" className="register_button">
-        <img id="logo" src={flowernav} alt="molhem logo" />
-        <div className="cewnter_title_register">
-          <span>أنشئ حساب</span>
-        </div>
-      </Link>
+      {id ? (
+        <PopAvatar avatar={avatar} />
+      ) : (
+        <Link to="/signup" className="register_button">
+          <img id="logo" src={flowernav} alt="molhem logo" />
+          <div className="cewnter_title_register">
+            <span>أنشئ حساب</span>
+          </div>
+        </Link>
+      )}
 
       <div className="flow_menu">
         <Backmenuflow />
