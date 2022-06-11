@@ -1,7 +1,8 @@
 import React from "react";
+import AddBookComponent from '../components/addbook';
 
 function AddBook() {
-  return <div>AddBook</div>;
+  return <div><AddBookComponent /></div>;
 }
 
 export default AddBook;
