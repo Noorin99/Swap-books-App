@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { createTheme, ThemeProvider } from "@mui/material";
 import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
