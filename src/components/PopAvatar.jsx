@@ -25,7 +25,7 @@ function PopAvatar({ avatar }) {
       </div>
       {show && (
         <div className="pop_option_avatar">
-          <button>حسابي</button>
+          <button onClick={() => location.assign("/profile")}>حسابي</button>
           <button onClick={logout}>تسجيل الخروج</button>
         </div>
       )}

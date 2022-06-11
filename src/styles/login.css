@@ -88,8 +88,9 @@
 
 .pop_option_avatar>button {
     margin-bottom: 3px;
-    background-color: rgba(243, 243, 243, 0.795);
-    height: 30px;
+    background-color: rgba(243, 243, 243, 0.541);
+    height: 40px;
+    font-family: var(--cairo);
 }
 
 .pop_option_avatar>button:hover {

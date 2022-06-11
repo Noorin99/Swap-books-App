@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactComponent as LonelyMolhem } from "../assets/images/lonelyMolhem.svg";
 import { ReactComponent as ArrowDown } from "../assets/icons/arrowDown.svg";
 import { ReactComponent as GroupThree } from "../assets/icons/GroupThree.svg";
@@ -29,8 +30,8 @@ function Home() {
         <div className="top_head_s1">
           <div className="title_s1_home">
             <span>
-              <span className="boros">ملهم</span> وحيد يكتنز كتبه لنفسه و لا
-              يشعر بأنس مجالستها ولكن عجباً فخير جليس في الزمان كتاب!
+              <span className="boros">ملهم</span> وحيد يكتنز كتبه لنفسه و لا يشعر بأنس مجالستها ولكن
+              عجباً فخير جليس في الزمان كتاب!
             </span>
 
             <div className="lines_s1">
@@ -52,9 +53,7 @@ function Home() {
       <section id="sec_2" className="section_home ">
         <div className="top_head_s1">
           <div className="title_s1_home">
-            <span>
-              حتى أن نبات أفكاره ما عادت تنمو كما عهد، فجلس يفكّر وحيداً
-            </span>
+            <span>حتى أن نبات أفكاره ما عادت تنمو كما عهد، فجلس يفكّر وحيداً</span>
 
             <div className="group_s2">
               <GroupThree />
@@ -100,10 +99,9 @@ function Home() {
       <section id="sec_4" className="section_4">
         <div className="title_s4">
           <span>
-            وجد <span className="greendetd">ملهم</span> أن السعادة تكمن في
-            مشاركة الآخرين وتبادل المنفعة فالشجرة إن لم تلقِ حملها وبذورها
-            لاندثرت وما بقيت، لتكن أنت ملهماً أيضاً وشاركنا تجربة العطاء فخير
-            الناس أنفعهم للناس
+            وجد <span className="greendetd">ملهم</span> أن السعادة تكمن في مشاركة الآخرين وتبادل
+            المنفعة فالشجرة إن لم تلقِ حملها وبذورها لاندثرت وما بقيت، لتكن أنت ملهماً أيضاً وشاركنا
+            تجربة العطاء فخير الناس أنفعهم للناس
           </span>
         </div>
         <div className="btn_give_book_s3">
