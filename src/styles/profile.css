@@ -196,13 +196,14 @@ u {
     flex-direction: column;
     gap: 10px;
     align-items: center;
-
+}
 .userImg {
     width: 170px;
     height: 170px;
     object-fit: cover;
     border-radius: 50%;
-  }.modalbtn{
+  }
+  .modalbtn{
     height: 50px;
     border-radius: 10px;
     background-color: #00A560;
@@ -283,6 +284,5 @@ border: transparent;
 height: 100%;
   }
 }
-=======
-}
+
 
