@@ -12,9 +12,11 @@ function UserSec() {
     facebook:"facebook.com",
   });
 
+
   const handleAddUser = () => {
     console.log("edit profile");
   };
+
 
 
       return (
@@ -88,3 +90,4 @@ function UserSec() {
     }
     
     export default UserSec;
+
