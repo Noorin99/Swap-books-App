@@ -20,8 +20,7 @@ import { setUserStore } from "./stores/User";
 
 function App() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
+   useEffect(() => {
     const checkAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
         console.log(" logged ", user.uid);

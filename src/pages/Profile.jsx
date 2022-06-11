@@ -1,6 +1,6 @@
 import React from "react";
-import BookTab from "../components/Profile/BookTab";
-import UserSec from "../components/Profile/UserSec";
+import BookTab from "../components/BookTab";
+import UserSec from "../components/UserSec";
 
 function Profile() {
   return (

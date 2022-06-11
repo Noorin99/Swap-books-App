@@ -29,10 +29,12 @@
   --titles: 2.3rem;
   --titles_med: 1.9rem;
   --sub_title: 1.5rem;
+  --sub_text: 1.2rem;
 
 
   /* shadow */
   --shad_3: 0 1px 6px rgba(0, 0, 0, 0.164);
+  --shad_4: 0 1px 8px rgba(0, 0, 0, 0.363);
 }
 
 html {
@@ -58,7 +60,7 @@ img {
 
 
 main {
-  margin-top: 12vh;
+  margin-top: 13vh;
   min-height: 88vh;
 }
 

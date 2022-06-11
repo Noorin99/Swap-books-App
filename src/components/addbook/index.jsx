@@ -39,14 +39,7 @@ const languageList = [
   "اللغة الإستريتية",
   "اللغة الإسبانية",
 ];
-const categoryList = [
-  "الخيال",
-  "التاريخ",
-  "القصص القصيرة",
-  "القصص الطويلة",
-  "الروايات",
-  "الأدب",
-];
+const categoryList = ["الخيال", "التاريخ", "القصص القصيرة", "القصص الطويلة", "الروايات", "الأدب"];
 
 function AddBookComponent() {
   const [books, setBook] = useState({
@@ -105,9 +98,7 @@ function AddBookComponent() {
               disablePortal
               options={languageList}
               sx={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField {...params} label="لغة الكتاب" />
-              )}
+              renderInput={(params) => <TextField {...params} label="لغة الكتاب" />}
               onChange={(event, newValue) => {
                 setBook({ ...books, language: newValue });
               }}
@@ -116,9 +107,7 @@ function AddBookComponent() {
               disablePortal
               options={categoryList}
               sx={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField {...params} label="فئة  الكتاب" />
-              )}
+              renderInput={(params) => <TextField {...params} label="فئة  الكتاب" />}
               onChange={(event, newValue) => {
                 setBook({ ...books, category: newValue });
               }}
@@ -132,9 +121,7 @@ function AddBookComponent() {
                 id="icon-button-file"
                 name="logo"
                 onChange={async (event) => {
-                  const imageBase = await convertToBase64(
-                    event.currentTarget.files[0]
-                  );
+                  const imageBase = await convertToBase64(event.currentTarget.files[0]);
                   setBook({ ...books, cover: imageBase });
                 }}
               />
@@ -147,8 +134,7 @@ function AddBookComponent() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "start",
-                }}
-              >
+                }}>
                 <PhotoCamera sx={{ mr: 1, color: "#00A560" }} />
                 غلاف الكتاب
               </Button>
@@ -162,20 +148,15 @@ function AddBookComponent() {
               variant="outlined"
               multiline
               rows={5}
-              onChange={(e) =>
-                setBook({ ...books, description: e.target.value })
-              }
+              onChange={(e) => setBook({ ...books, description: e.target.value })}
             />
 
             <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label">
-                حالة الكتاب
-              </FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label">حالة الكتاب</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="good"
-                name="radio-buttons-group"
-              >
+                name="radio-buttons-group">
                 <div className="rating">
                   <FormControlLabel
                     value="good"
@@ -185,8 +166,7 @@ function AddBookComponent() {
                           style={{
                             width: 50,
                             height: 50,
-                            fill:
-                              books.status === "good" ? "green" : "lightgray",
+                            fill: books.status === "good" ? "green" : "lightgray",
                           }}
                         />
                       </IconButton>
@@ -202,10 +182,7 @@ function AddBookComponent() {
                           style={{
                             width: 50,
                             height: 50,
-                            fill:
-                              books.status === "verygood"
-                                ? "green"
-                                : "lightgray",
+                            fill: books.status === "verygood" ? "green" : "lightgray",
                           }}
                         />
                       </IconButton>
@@ -221,10 +198,7 @@ function AddBookComponent() {
                           style={{
                             width: 50,
                             height: 50,
-                            fill:
-                              books.status === "execlent"
-                                ? "green"
-                                : "lightgray",
+                            fill: books.status === "execlent" ? "green" : "lightgray",
                           }}
                         />
                       </IconButton>
@@ -242,11 +216,7 @@ function AddBookComponent() {
         </button>
       </div>
       <div>
-        <img
-          className="molhemimg"
-          src="https://i.ibb.co/xqdSSv9/Layer-3.png"
-          alt=""
-        />
+        <img className="molhemimg" src="https://i.ibb.co/xqdSSv9/Layer-3.png" alt="" />
       </div>
     </div>
   );

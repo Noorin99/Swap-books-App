@@ -1,0 +1,285 @@
+.profile_continer {
+    width: 80%;
+    margin: 0 auto;
+
+}
+
+.head_profile {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+
+
+.info_user_profile {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.btn_edit_profile {
+    margin-right: auto;
+    width: 250px;
+    height: 50px;
+    background-color: #00a560;
+    border-radius: 10px;
+}
+
+.btn_edit_profile button {
+    color: white;
+    font-size: 14px;
+    font-family: cairo;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 750px) {
+    .btn_edit_profile button {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.avatar_profile {
+    width: 170px;
+    min-width: 170px;
+    height: 170px;
+}
+
+.avatar_profile img {
+    cursor: pointer;
+    box-shadow: var(--shad_4);
+    border-radius: 50%;
+}
+
+.details_profile {
+    margin-right: 40px;
+}
+
+.username {
+    font-size: var(--titles_med);
+    font-weight: bold;
+}
+
+.description_profile {
+    margin-top: 10px;
+    color: #0d4e32;
+    font-size: var(--sub_text);
+    width: 90%;
+}
+
+ul {
+    list-style-type: none;
+    margin-top: 15px;
+}
+
+.sub_line_destails {
+    font-size: 19px;
+    color: black;
+    margin-right: 10px;
+}
+
+
+.tab_profile {
+    width: 150px;
+}
+
+.favBooks {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 22%);
+    gap: 15px;
+    justify-content: space-evenly;
+}
+
+.singleBook {
+    height: 400px;
+}
+
+.cover_book_profile {
+    height: 330px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: var(--shad_4);
+
+}
+
+.delete_favorite_profile {
+    height: 40px;
+    border-radius: 10px;
+    background: var(--green);
+    color: white;
+    font-family: var(--cairo);
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+
+.delete_favorite_profile:hover {
+    background: var(--green_hover);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* not yet update */
+
+.books {
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+a,
+u {
+    text-decoration: none;
+}
+
+.editdata {
+    font-size: 16px;
+    color: #0d4e32;
+}
+
+.addbook {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.addbook h1 {
+    font-size: 18px;
+    margin: 15px;
+}
+
+.addbook p {
+    font-size: 15px;
+    padding: 5px;
+}
+
+
+
+.addbookbtn {
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #00a560;
+    color: white;
+    font-size: 14px;
+    font-family: cairo;
+    font-weight: bold;
+    border: transparent;
+}
+
+.add2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.userImg {
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 50%;
+  }.modalbtn{
+    height: 50px;
+    border-radius: 10px;
+    background-color: #00A560;
+    color: white;
+    font-size: 14px;
+    font-family: cairo;
+    font-weight: bold;
+    border: transparent;
+}
+.allpage{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.books {
+  display: flex;
+  flex-direction: row;
+}
+.userpage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ 
+}
+.userImg {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+ul{
+    list-style-type: none;
+}
+a, u {
+    text-decoration: none;
+  }
+.editdata{
+font-size: 16px;
+    color: #0D4E32;
+}
+.username{
+    font-size: 30px;
+    font-weight: bold;
+}
+.userdesc{
+    font-size: 20px;
+    color: #0D4E32;
+}
+.useremail, .userfb, .usercity{
+    font-size: 19px;
+    color: black;
+    margin-right: 10px;
+}
+.content{
+    margin-right: 62px;
+
+}
+.edditbtn{
+   
+    margin: auto;
+}
+.createprofile{
+width: 250px;
+height: 50px;
+border-radius: 10px;
+background-color: #00A560;
+color: white;
+font-size: 14px;
+font-family: cairo;
+font-weight: bold;
+border: transparent;
+}
+@media screen and (max-width: 750px) {
+  .createprofile{
+    width: 100%;
+height: 100%;
+  }
+}
