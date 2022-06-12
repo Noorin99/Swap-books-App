@@ -3,6 +3,7 @@ import Logo from "../../assets/icons/Logo.svg";
 import { Link } from "react-router-dom";
 
 const Nav = () => {
+  
   return (
     <nav className="header">
       <Link component={Link} to="/">
@@ -12,10 +13,10 @@ const Nav = () => {
         <Link className="header_elements" component={Link} to="/">
           <span>الصفحة الرئيسية</span>
         </Link>
-        <Link className="header_elements" component={Link} to="/">
+        <Link className="header_elements" component={Link} to="/addbook">
           <span>أعط كتاب</span>
         </Link>
-        <Link className="header_elements" component={Link} to="/">
+        <Link className="header_elements" component={Link} to="/book/:id">
           <span>ابحث عن كتب</span>
         </Link>
         <Link className="header_elements" component={Link} to="/">
@@ -28,7 +29,13 @@ const Nav = () => {
       <div className="register_button">
         <button className="leaf"></button>
         <span className="leaf_inside">أنشئ حساب</span>
+        
+        
       </div>
+
+   
+        
+
     </nav>
   );
 };

@@ -1,0 +1,101 @@
+.container {
+    display: flex;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 83vh;
+    gap: 15px;
+    padding-top: 50px;
+  }
+  
+  .input {
+    width: 68%;
+    height: 150px;
+    border: 1px #a09c9c solid;
+    background-color: var(--white);
+    border-radius: 10px;
+    cursor: pointer;
+    outline: none;
+    margin-block-end: 0.5ch;
+  }
+  
+  .upload {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .upload-content {
+    border-radius: 50%;
+    border: 4px dotted black;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    position: relative;
+  }
+  .upload-content input,
+  .upload-content img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .upload-content input {
+    z-index: 99;
+    top: -20px;
+    height: 110%;
+  }
+  
+  .upload-content img {
+    z-index: 98;
+  }
+  .img-cont {
+    display: flex;
+    flex-direction: column;
+    margin-right: 90px;
+  }
+  
+  ::placeholder {
+    font-family: var(--cairo);
+    padding: 10px;
+    font-size: 13px;
+  }
+  
+  .add_button {
+    font-family: var(--cairo);
+    font-weight: bold;
+    color: var(--white);
+    background-color: var(--green);
+    border-radius: 10px;
+    border: none;
+    width: 69%;
+    height: 40px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .doot {
+    height: 10px;
+    width: 10px;
+    background-color: var(--green);
+    border-color: var(--black);
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 20px;
+    border: 2px var(--green) solid;
+  }
+  
+  .img {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
