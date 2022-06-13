@@ -15,7 +15,6 @@ function Signup() {
   const onSignup = async (e) => {
     e.preventDefault();
     let log = { email, password, fname };
-    console.log(log);
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
@@ -24,7 +23,7 @@ function Signup() {
           email,
           DOJ: Date.now(),
         }).then(() => {
-          window.location.assign("/profile");
+          location.assign("/profile");
         });
       })
       .catch((error) => {
