@@ -3,11 +3,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
-import { auth } from "./firebase/config";
+import { auth, store } from "./firebase/config";
 import AddBook from "./pages/AddBook";
 import Book from "./pages/Book";
 import Books from "./pages/Books";
-import EditProfile from "./pages/EditProfile";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Page404 from "./pages/Page404";
@@ -17,14 +16,19 @@ import Signup from "./pages/Signup";
 import "./styles";
 import { useDispatch } from "react-redux";
 import { setUserStore } from "./stores/User";
+import { doc, getDoc } from "firebase/firestore";
 
 function App() {
   const dispatch = useDispatch();
-   useEffect(() => {
+  useEffect(() => {
     const checkAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
         console.log(" logged ", user.uid);
-        dispatch(setUserStore({ id: user.uid }));
+        const docRef = doc(store, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          dispatch(setUserStore({ id: user.uid, ...docSnap.data() }));
+        }
       } else {
         console.log("not logged");
       }
@@ -44,7 +48,6 @@ function App() {
           <Route path="/book/:id" element={<Book />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<ProfileDemo />} />
-          <Route path="/editprofile" element={<EditProfile />} />
           <Route path="/addbook" element={<AddBook />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
