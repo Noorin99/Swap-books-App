@@ -3,24 +3,29 @@ import { ReactComponent as Picture } from "../assets/images/community.svg";
 import { ReactComponent as Google } from "../assets/icons/google.svg";
 import { ReactComponent as Facebook } from "../assets/icons/facebook.svg";
 import { TextField } from "@mui/material";
-import { auth } from "../firebase/config";
+import { auth, store } from "../firebase/config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 function Signup() {
   const [fname, setFname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onSignup = (e) => {
+  const onSignup = async (e) => {
     e.preventDefault();
     let log = { email, password, fname };
     console.log(log);
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log("--------------");
-        console.log(user.uid);
-        window.location.assign("/profile");
+        await setDoc(doc(store, "users", user.uid), {
+          fname,
+          email,
+          DOJ: Date.now(),
+        }).then(() => {
+          window.location.assign("/profile");
+        });
       })
       .catch((error) => {
         const errorCode = error.code;

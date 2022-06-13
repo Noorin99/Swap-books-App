@@ -21,10 +21,10 @@ function Nav() {
         <Link className="header_elements" to="/">
           <span>الصفحة الرئيسية</span>
         </Link>
-        <Link className="header_elements" to="/">
+        <Link className="header_elements" to="/AddBook">
           <span>أعط كتاب</span>
         </Link>
-        <Link className="header_elements" to="/">
+        <Link className="header_elements" to="/books">
           <span>ابحث عن كتب</span>
         </Link>
         <Link className="header_elements" to="/">
