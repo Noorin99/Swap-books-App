@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BiLocationPlus } from "react-icons/bi";
 import ModalEdit from "./ModalEdit";
-import { useSelector } from "react-redux";
 
-function UserSec() {
+let noAVatar = "https://hope.be/wp-content/uploads/2015/05/no-user-image.gif";
+
+function UserSec({ data, edit }) {
   const [showEdit, setShowEdit] = useState(false);
-  const { avatar, fname, description, city, facebook, email } = useSelector((state) => state.User);
+  let { avatar, fname, description, twitter, instagram, city, facebook, email } = data;
 
   return (
     <div className="head_profile">
       <div className="info_user_profile">
         <div className="avatar_profile">
-          <img src={avatar} alt="" />
+          <img src={avatar || noAVatar} alt="" />
         </div>
         <div className="details_profile">
           <div className="username">
@@ -31,11 +32,28 @@ function UserSec() {
             )}
             {facebook && (
               <li>
-                <FaFacebookF color="00A560" />
-                <span className="sub_line_destails">https://www.facebook.com/lorina</span>
+                <a target="_blanck" href={facebook}>
+                  <FaFacebookF color="00A560" />
+                  <span className="sub_line_destails">{facebook}</span>
+                </a>
               </li>
             )}
-
+            {instagram && (
+              <li>
+                <a target="_blanck" href={instagram}>
+                  <FaInstagram color="00A560" />
+                  <span className="sub_line_destails">{instagram}</span>
+                </a>
+              </li>
+            )}
+            {twitter && (
+              <li>
+                <a target="_blanck" href={twitter}>
+                  <FaTwitter color="00A560" />
+                  <span className="sub_line_destails">{twitter}</span>
+                </a>
+              </li>
+            )}
             {city && (
               <li>
                 <BiLocationPlus color="00A560" />
@@ -45,10 +63,14 @@ function UserSec() {
           </ul>
         </div>
       </div>
-      <div className="btn_edit_profile">
-        <button onClick={() => setShowEdit(true)}>تعديل ملفك الشخصي</button>
-      </div>
-      {showEdit && <ModalEdit setShowEdit={setShowEdit} />}
+      {edit && (
+        <>
+          <div className="btn_edit_profile">
+            <button onClick={() => setShowEdit(true)}>تعديل ملفك الشخصي</button>
+          </div>
+          {showEdit && <ModalEdit setShowEdit={setShowEdit} />}
+        </>
+      )}
     </div>
   );
 }

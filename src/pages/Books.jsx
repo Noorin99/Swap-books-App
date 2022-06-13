@@ -3,6 +3,7 @@ import axios from "axios";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { TextField } from "@mui/material";
 import { async } from "@firebase/util";
+import { Link } from "react-router-dom";
 
 function Books() {
   const [query, setQuery] = useState("");
@@ -77,14 +78,14 @@ function Books() {
 
       <div className="bowl_cards_filter">
         {data.map((book) => (
-          <div className="card_filter_book" key={book.id}>
+          <Link to={`/book/${book.id}`} className="card_filter_book" key={book.id}>
             <div className="cover_book_filter">
               <img src={book.volumeInfo?.imageLinks?.thumbnail} alt={book?.title} />
             </div>
             <div className="title_Book_card">
               <span>{book.volumeInfo.title}</span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

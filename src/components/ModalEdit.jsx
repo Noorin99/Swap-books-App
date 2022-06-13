@@ -14,11 +14,10 @@ const Input = styled("input")({
   display: "none",
 });
 
-const cityList = ["الرياض", "جدة", "الدمام", "الخرج"];
+const cityList = ["غزة", "جباليا", "خانيونس", "رفح"];
 
 function ModalEdit({ setShowEdit }) {
   const [data, setData] = useState({});
-  const [message, setMessage] = useState({ type: "", messageText: "" });
   const user = useSelector((state) => state.User);
   const [coverReader, setCoverReader] = useState("");
   const [fileAvatar, setFileAvatar] = useState();
@@ -62,6 +61,7 @@ function ModalEdit({ setShowEdit }) {
     const upData = doc(store, "users", user.id);
     await updateDoc(upData, { ...data, avatar }).then(() => {
       setShowEdit(false);
+      location.reload();
     });
   };
 

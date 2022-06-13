@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@material-ui/lab/TabContext";
@@ -6,100 +6,49 @@ import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-const faviBooks = [
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-];
-const addedBooks = [
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-  {
-    title: "The Lord of the Rings",
-    cover: "http://www.4read.net/uploads/images/1480158996.jpg",
-  },
-  {
-    title: "The Hobbit",
-    cover:
-      "https://upload.wikimedia.org/wikipedia/ar/thumb/2/2a/Garnada_trilogy.jpg/220px-Garnada_trilogy.jpg",
-  },
-];
+import { store } from "../firebase/config";
+import { doc, getDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 function BookTab() {
-  const [value, setValue] = useState("0");
+  const [value, setValue] = useState("1");
   const [search, setSearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
-  const [fbooks, setfBooks] = useState(faviBooks);
-  const [books, setBooks] = useState(addedBooks);
+  const [fbooks, setfBooks] = useState([]);
+  const [books, setBooks] = useState([]);
   const navigate = useNavigate();
+  const { id, givesBooks = [] } = useSelector((state) => state.User);
+
+  const getGives = async () => {
+    let arr = [];
+    givesBooks.forEach(async (e) => {
+      const docRef = doc(store, "books", e);
+      const docSnap = await getDoc(docRef);
+      arr.push(docSnap.data());
+      if (arr.length === givesBooks.length) {
+        setBooks(arr);
+      }
+    });
+  };
+
+  const getFavorites = async () => {
+    let arr = [];
+    givesBooks.forEach(async (e) => {
+      const docRef = doc(store, "books", e);
+      const docSnap = await getDoc(docRef);
+      arr.push(docSnap.data());
+      if (arr.length === givesBooks.length) {
+        setfBooks(arr);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (id) {
+      getGives();
+      getFavorites();
+    }
+  }, [id]);
 
   const searchBook = () => {
     setIsSearch(!isSearch);
@@ -177,6 +126,23 @@ function BookTab() {
           </div>
         </TabPanel>
         <TabPanel value="1">
+          <div className="favBooks">
+            {books?.length &&
+              books.map((book, index) => (
+                <div className="singleBook" key={index}>
+                  <div className="cover_book_profile">
+                    <img src={book.cover} alt={book.title} className="bookImg" />
+                  </div>
+                  <button
+                    className="delete_favorite_profile"
+                    onClick={() => handleDeleteFromFav(index)}>
+                    حذف
+                  </button>
+                </div>
+              ))}
+          </div>
+        </TabPanel>
+        <TabPanel value="2">
           {/* Each child in a list should have a unique "key" prop. */}
           <div className="favBooks">
             {fbooks.map((book, index) => (
@@ -185,22 +151,6 @@ function BookTab() {
                   <img src={book.cover} alt={book.title} />
                 </div>
                 <button className="delete_favorite_profile" onClick={() => deleteFbooks(index)}>
-                  حذف
-                </button>
-              </div>
-            ))}
-          </div>
-        </TabPanel>
-        <TabPanel value="2">
-          <div className="favBooks">
-            {books.map((book, index) => (
-              <div className="singleBook" key={index}>
-                <div className="cover_book_profile">
-                  <img src={book.cover} alt={book.title} className="bookImg" />
-                </div>
-                <button
-                  className="delete_favorite_profile"
-                  onClick={() => handleDeleteFromFav(index)}>
                   حذف
                 </button>
               </div>

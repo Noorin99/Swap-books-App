@@ -8,6 +8,7 @@
   display: flex;
   min-height: 300px;
   gap: 100px;
+  align-items: center;
 }
 
 .cover-container {
@@ -35,13 +36,11 @@
   font-weight: 700;
 }
 
-.description {
-  width: 90%;
-}
+
 
 .buttons {
   display: flex;
-  width: 45%;
+  width: 400px;
   height: 42px;
   gap: 15px;
   margin-top: 10px;
@@ -171,10 +170,6 @@
     align-items: center;
   }
 
-  .description {
-    font-size: 0.8rem;
-    text-align: justify;
-  }
 
   .buttons {
     width: 95%;
@@ -195,3 +190,10 @@
   }
 }
 
+.description {
+  font-size: 0.8rem;
+  height: 250px;
+  overflow: auto;
+  width: 80%;
+  padding-left: 20px;
+}

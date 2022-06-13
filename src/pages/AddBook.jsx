@@ -12,6 +12,10 @@ import {
 import { styled } from "@mui/material/styles";
 import { PhotoCamera } from "@mui/icons-material";
 import { ReactComponent as Good } from "../assets/icons/good.svg";
+import { store } from "../firebase/config";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { async } from "@firebase/util";
+import { useSelector } from "react-redux";
 
 const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -25,6 +29,7 @@ const convertToBase64 = (file) => {
     };
   });
 };
+
 const Input = styled("input")({
   display: "none",
 });
@@ -37,6 +42,7 @@ const languageList = [
   "اللغة الإستريتية",
   "اللغة الإسبانية",
 ];
+
 const categoryList = ["الخيال", "التاريخ", "القصص القصيرة", "القصص الطويلة", "الروايات", "الأدب"];
 
 function AddBook() {
@@ -50,14 +56,32 @@ function AddBook() {
     description: "",
     category: "",
   });
+  const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
 
   const handleChecked = (status) => {
     setBook({ ...books, status });
   };
 
-  const handleaddbook = (e) => {
+  const handleaddbook = async (e) => {
     e.preventDefault();
     console.log(books);
+
+    let { isbn } = books;
+    const pathID = `no_${isbn.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
+    const docRef = doc(store, "books", pathID);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      //
+    } else {
+      await setDoc(doc(store, "books", pathID), { ...books, id: pathID }).then(async () => {
+        let newGives = [...givesBooks, pathID];
+        const docRef = doc(store, "users", idUser);
+        await updateDoc(docRef, { givesBooks: newGives }).then(() => {
+          console.log("update user");
+        });
+      });
+    }
   };
 
   return (
