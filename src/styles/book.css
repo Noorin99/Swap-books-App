@@ -1,0 +1,197 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.book-details-container {
+  display: flex;
+  min-height: 300px;
+  gap: 100px;
+}
+
+.cover-container {
+  margin-right: 50px;
+}
+
+.cover {
+  min-width: 300px;
+  max-height: 450px;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 1.5rem;
+  color: #0d4e32;
+}
+
+.author {
+  font-weight: 700;
+}
+
+.description {
+  width: 90%;
+}
+
+.buttons {
+  display: flex;
+  width: 45%;
+  height: 42px;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn1 {
+  background-color: #00a560;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: var(--cairo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn2 {
+  border: solid 2px #00a560;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #0d4e32;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: var(--cairo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.line {
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+.users-container {
+  width: 93%;
+  margin: 0 auto;
+  margin-top: 20px;
+  color: #0d4e32;
+  font-weight: 800;
+}
+
+.users {
+  margin-top: 30px;
+  gap: 50px;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+}
+
+.avatar2 {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.quality {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(98, 98, 98);
+}
+
+.status {
+  color: black;
+}
+
+.contact-button {
+  background-color: #5630c1;
+  color: white;
+  width: 15%;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 180px;
+}
+
+.book-status {
+  font-size: 0.9rem;
+  color: #0d4e32;
+  font-weight: 600;
+}
+
+.give-book-btn {
+  background-color: #00a560;
+}
+
+/* Responsive */
+@media only screen and (max-width: 965px) {
+  .book-details-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    margin-top: 20px;
+    gap: 1px;
+  }
+
+  .cover-container {
+    margin-right: 1px;
+  }
+
+  .cover {
+    min-width: 200px;
+    max-height: 300px;
+  }
+
+  .details {
+    align-items: center;
+  }
+
+  .description {
+    font-size: 0.8rem;
+    text-align: justify;
+  }
+
+  .buttons {
+    width: 95%;
+  }
+
+  .avatar2 {
+    width: 50px;
+    height: 50px;
+  }
+
+  .user {
+    font-size: 0.7rem;
+  }
+
+  .contact-button {
+    width: 32%;
+    font-size: 0.6rem;
+  }
+}
+

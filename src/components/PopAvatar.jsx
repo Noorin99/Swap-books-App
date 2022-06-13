@@ -11,7 +11,7 @@ function PopAvatar({ avatar }) {
     signOut(auth)
       .then(() => {
         console.log("Sign-out successful.");
-        window.location.reload();
+        location.reload();
       })
       .catch((error) => {
         console.log("An error happened.", error);

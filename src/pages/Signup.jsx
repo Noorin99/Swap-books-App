@@ -14,12 +14,9 @@ function Signup() {
   const onSignup = (e) => {
     e.preventDefault();
     let log = { email, password, fname };
-    console.log(log);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log("--------------");
-        console.log(user.uid);
         window.location.assign("/profile");
       })
       .catch((error) => {
