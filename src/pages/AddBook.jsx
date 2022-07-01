@@ -14,7 +14,6 @@ import { PhotoCamera } from "@mui/icons-material";
 import { ReactComponent as Good } from "../assets/icons/good.svg";
 import { store } from "../firebase/config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { async } from "@firebase/util";
 import { useSelector } from "react-redux";
 
 const convertToBase64 = (file) => {
@@ -71,14 +70,20 @@ function AddBook() {
     const docRef = doc(store, "books", pathID);
     const docSnap = await getDoc(docRef);
 
+    console.log(isbn);
+    console.log(docSnap.exists());
     if (docSnap.exists()) {
-      //
+      let newGives = [...givesBooks, pathID];
+      const docRef = doc(store, "users", idUser);
+      await updateDoc(docRef, { givesBooks: newGives }).then(() => {
+        console.log("update user 1");
+      });
     } else {
       await setDoc(doc(store, "books", pathID), { ...books, id: pathID }).then(async () => {
         let newGives = [...givesBooks, pathID];
         const docRef = doc(store, "users", idUser);
         await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-          console.log("update user");
+          console.log("update user 2");
         });
       });
     }

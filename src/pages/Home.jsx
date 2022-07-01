@@ -27,7 +27,7 @@ function Home() {
     <>
       {/* section 1 */}
       <section className="section_home ">
-        <div className="top_head_s1">
+        <div className="top_head_s1 hosec1res">
           <div className="title_s1_home">
             <span>
               <span className="boros">ملهم</span> وحيد يكتنز كتبه لنفسه و لا يشعر بأنس مجالستها ولكن
@@ -41,7 +41,6 @@ function Home() {
               <div className="line_s1 l4"></div>
             </div>
           </div>
-
           <div className="cover_s1_home">
             <LonelyMolhem />
           </div>
@@ -51,10 +50,9 @@ function Home() {
 
       {/* section 2 */}
       <section id="sec_2" className="section_home ">
-        <div className="top_head_s1">
+        <div className="top_head_s1 hosec1res">
           <div className="title_s1_home">
             <span>حتى أن نبات أفكاره ما عادت تنمو كما عهد، فجلس يفكّر وحيداً</span>
-
             <div className="group_s2">
               <GroupThree />
             </div>
@@ -78,7 +76,6 @@ function Home() {
       </section>
 
       {/* section 3 */}
-
       <section id="sec_3" className="section_home ">
         <div className="content_section_3">
           <div className="bowl_hands">
@@ -96,6 +93,7 @@ function Home() {
         <GoNextSection go="#sec_4" />
       </section>
 
+      {/* section 4 */}
       <section id="sec_4" className="section_4">
         <div className="title_s4">
           <span>

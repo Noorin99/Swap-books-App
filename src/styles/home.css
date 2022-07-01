@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: calc(88vh - 90px);
+    min-height: calc(88vh - 90px);
     font-family: var(--elmessiri);
 }
 
@@ -16,6 +16,17 @@
     padding: 10px;
     position: relative;
 }
+
+
+.cover_s1_home {
+    height: 100%;
+    width: 450px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
 
 .title_s1_home .boros {
     color: var(--darkGreen);
@@ -76,13 +87,6 @@
     right: 14%;
 }
 
-.cover_s1_home {
-    height: 100%;
-    width: 450px;
-    display: flex;
-    justify-content: center;
-}
-
 .go_crolling {
     padding: 10px;
     height: 90px;
@@ -129,7 +133,6 @@
     width: 45%;
     display: flex;
     justify-content: center;
-    /* background-color: red; */
     position: relative;
     display: flex;
     align-items: center;
@@ -144,8 +147,8 @@
 
 .top_thinks_circle {
     position: absolute;
-    top: 15px;
-    right: 20%;
+    top: -80px;
+    right: 30px;
     height: 100px;
     width: 220px;
     display: flex;
@@ -197,12 +200,18 @@
 
 .content_section_3 {
     display: flex;
-    /* background-color: red; */
-    height: calc(88vh - 90px);
+    min-height: calc(88vh - 90px);
     justify-content: space-between;
     align-items: center;
 }
 
+.bowl_hands {
+    width: 40%;
+}
+
+.bowl_hands svg {
+    width: 100%;
+}
 
 .btn_give_book_s3 {
     background-color: var(--green);
@@ -223,7 +232,6 @@
 }
 
 .cover_give_book_s3 {
-    /* background-color: blue; */
     width: 40%;
     display: flex;
     align-items: center;
@@ -231,7 +239,7 @@
 }
 
 .cover_give_book_s3 svg {
-    width: 400px;
+    width: 80%;
 }
 
 
@@ -274,6 +282,98 @@
 
 .advicegroup_s4 {
     width: 400px;
-
     height: 300px;
+}
+
+
+
+
+@media screen and (max-width: 800px) {
+    .hosec1res {
+        flex-direction: column-reverse;
+    }
+
+    .title_s1_home {
+        margin-top: 40px;
+        width: 80%;
+    }
+
+    .cover_s2_home {
+        margin-top: 150px;
+        width: 65%;
+    }
+
+    .group_s2 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .content_section_3 {
+        flex-direction: column-reverse;
+    }
+
+    .bowl_hands {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .cover_give_book_s3 {
+        width: 70%;
+        margin-bottom: 50px;
+    }
+
+
+    .title_s4 {
+        width: 80%;
+    }
+
+    .draws {
+        margin-top: 40px;
+    }
+
+    .advicegroup_s4 {
+        width: 350px;
+        height: 270px;
+    }
+
+    .back_threes {
+        bottom: -70px;
+    }
+
+
+}
+
+
+@media screen and (max-width: 500px) {
+    .cover_s2_home {
+        width: 85%;
+    }
+
+    .cover_s1_home {
+        width: 321px;
+    }
+
+    .bowl_hands {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .cover_give_book_s3 {
+        width: 80%;
+        margin-bottom: 50px;
+    }
+
+    .title_s4 {
+        width: 90%;
+    }
+
+    .advicegroup_s4 {
+        width: 320px;
+        height: 250px;
+    }
+
+    .back_threes {
+        bottom: -120px;
+    }
+
 }

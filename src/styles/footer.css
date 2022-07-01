@@ -4,8 +4,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 15vh;
-    margin-top: 60px;
+    min-height: 15vh;
+    margin-top: 80px;
 }
 
 
@@ -19,7 +19,54 @@ footer a:hover {
     color: var(--green);
 }
 
+.menu_ffoter a {
+    font-size: var(--sub_text);
+    text-align: center;
+    margin-top: 10px;
+}
 
-.all_rights:hover{
+.all_rights {
+    font-size: var(--sub_text);
+    text-align: center;
+}
+
+.all_rights:hover {
     color: var(--green);
+}
+
+
+@media screen and (max-width: 800px) {
+    .menu_ffoter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo_footer {
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    footer {
+        flex-direction: column;
+    }
+
+    .logo_footer {
+        width: 200px;
+        margin-top: 25px;
+    }
+
+    .menu_ffoter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all_rights {
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+
+    .menu_ffoter {
+        margin-top: 25px;
+    }
 }

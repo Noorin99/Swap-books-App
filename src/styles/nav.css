@@ -101,5 +101,163 @@ nav {
     color: var(--white);
     font-family: var(--elmessiri);
     font-size: var(--sub_title);
+}
 
+.flow_menu.mode {
+    top: 40%;
+    left: -20px;
+}
+
+.title_menu_flow.mode {
+    top: 40%;
+    right: -45px;
+}
+
+
+
+
+/* nice animation by noor */
+
+
+
+
+.pop_menu {
+    background-color: var(--green);
+    position: fixed;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    border-radius: 50%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    justify-content: center;
+    animation: startPop .4s ease-in-out forwards,
+        startPop2 .5s ease-in-out forwards 0.4s,
+        startPop3 .3s ease-in-out forwards .9s;
+}
+
+
+@keyframes startPop {
+    100% {
+        opacity: 1;
+        top: 45%;
+        transform: translateX(-50%) scale(.8);
+    }
+}
+
+@keyframes startPop2 {
+    50% {
+        transform: translateX(-50%) scale(1.8);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(.7);
+    }
+}
+
+@keyframes startPop3 {
+    100% {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        border-radius: 0;
+        transform: translateX(-50%) scale(1);
+        background-color: #21264b;
+    }
+}
+
+
+
+.content_pop_menu {
+    opacity: 0;
+    transform: scale(.3);
+    width: 100%;
+    color: #fff;
+    font-family: var(--elmessiri);
+    font-size: var(--sub_text);
+    animation: startPop22 .6s ease-in-out forwards 0.8s;
+}
+
+@keyframes startPop22 {
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+.profile_mode_line {
+    display: flex;
+    align-items: center;
+    background-color: #28305a;
+    width: 100%;
+    height: 77px;
+    justify-content: center;
+    color: #fff;
+    margin-top: 15px;
+    opacity: 0;
+    user-select: none;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    transform: translateX(-150%);
+    animation: statLineMenu calc(0.3s * var(--i)) ease-in-out forwards 1.3s;
+}
+
+.profile_mode_line:hover {
+    background-color: #475185b7;
+}
+
+
+@keyframes statLineMenu {
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.profile_mode_line img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+
+.close_pop_menu {
+    background-color: #f34a33;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(150%);
+    animation: staeMenuClose .6s ease-in-out forwards 1.7s;
+}
+
+@keyframes staeMenuClose {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close_pop_menu svg {
+    fill: #fff;
+    width: 44px;
+    height: 44px;
+}
+
+
+.menu_toggle {
+    cursor: pointer;
+    /* fill: var(--green); */
+    /* color: red; */
+    /* background-color: blue; */
 }
