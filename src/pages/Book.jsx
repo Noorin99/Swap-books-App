@@ -64,7 +64,6 @@ function Book() {
     } else {
       latest = [...oldFav, pathID];
     }
-    console.log(latest);
     const upData = doc(store, "users", idUser);
     await updateDoc(upData, { favorites: latest }).then(async () => {
       const docSnap = await getDoc(upData);
@@ -76,14 +75,17 @@ function Book() {
     let newGives = [...givesBooks, pathID];
     const docRef = doc(store, "users", idUser);
     await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-      console.log("update user");
+      setProfilesGives([]);
+      getWhoGives();
     });
   };
+
   const deleteGiveUser = async () => {
     let newGives = givesBooks.filter((e) => e !== pathID);
     const docRef = doc(store, "users", idUser);
     await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-      console.log("update user");
+      setProfilesGives([]);
+      getWhoGives();
     });
   };
 

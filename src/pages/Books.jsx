@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { TextField } from "@mui/material";
-import { async } from "@firebase/util";
 import { Link } from "react-router-dom";
 
 function Books() {

@@ -11,10 +11,12 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { PhotoCamera } from "@mui/icons-material";
-import { ReactComponent as Good } from "../assets/icons/good.svg";
 import { store } from "../firebase/config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { ReactComponent as Excellent } from "../assets/Excellent.svg";
+import { ReactComponent as VeryGoodBook } from "../assets/VeryGoodBook.svg";
+import { ReactComponent as GoodBook } from "../assets/GoodBook.svg";
 
 const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -63,15 +65,10 @@ function AddBook() {
 
   const handleaddbook = async (e) => {
     e.preventDefault();
-    console.log(books);
-
     let { isbn } = books;
     const pathID = `no_${isbn.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
     const docRef = doc(store, "books", pathID);
     const docSnap = await getDoc(docRef);
-
-    console.log(isbn);
-    console.log(docSnap.exists());
     if (docSnap.exists()) {
       let newGives = [...givesBooks, pathID];
       const docRef = doc(store, "users", idUser);
@@ -99,7 +96,7 @@ function AddBook() {
               label="اسم الكتاب"
               size="medium"
               variant="outlined"
-              style={{ width: 300 }}
+              className="textfield_Addbook"
               value={books.title}
               onChange={(e) => setBook({ ...books, title: e.target.value })}
             />
@@ -108,7 +105,7 @@ function AddBook() {
               label="اسم المؤلف"
               size="medium"
               variant="outlined"
-              style={{ width: 300 }}
+              className="textfield_Addbook"
               value={books.author}
               onChange={(e) => setBook({ ...books, author: e.target.value })}
             />
@@ -117,14 +114,14 @@ function AddBook() {
               label=" الرقم الدولي المعياري للكتاب ISBN "
               size="medium"
               variant="outlined"
-              style={{ width: 300 }}
+              className="textfield_Addbook"
               value={books.isbn}
               onChange={(e) => setBook({ ...books, isbn: e.target.value })}
             />
             <Autocomplete
               disablePortal
               options={languageList}
-              sx={{ width: 300 }}
+              className="textfield_Addbook"
               renderInput={(params) => <TextField {...params} label="لغة الكتاب" />}
               onChange={(event, newValue) => {
                 setBook({ ...books, language: newValue });
@@ -133,7 +130,7 @@ function AddBook() {
             <Autocomplete
               disablePortal
               options={categoryList}
-              sx={{ width: 300 }}
+              className="textfield_Addbook"
               renderInput={(params) => <TextField {...params} label="فئة  الكتاب" />}
               onChange={(event, newValue) => {
                 setBook({ ...books, category: newValue });
@@ -155,9 +152,9 @@ function AddBook() {
               <Button
                 variant="outlined"
                 component="span"
+                className="textfield_Addbook"
                 sx={{
                   height: "56px",
-                  width: "350px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "start",
@@ -178,7 +175,7 @@ function AddBook() {
               onChange={(e) => setBook({ ...books, description: e.target.value })}
             />
 
-            <FormControl>
+            <FormControl className="conterol_Bowl">
               <FormLabel id="demo-radio-buttons-group-label">حالة الكتاب</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
@@ -188,14 +185,10 @@ function AddBook() {
                   <FormControlLabel
                     value="good"
                     control={
-                      <IconButton onClick={() => handleChecked("good")}>
-                        <Good
-                          style={{
-                            width: 50,
-                            height: 50,
-                            fill: books.status === "good" ? "green" : "lightgray",
-                          }}
-                        />
+                      <IconButton
+                        onClick={() => handleChecked("good")}
+                        className={`bowl_Svg_State ${books.status === "good" && "active"}`}>
+                        <GoodBook className="svg_type_Book" />
                       </IconButton>
                     }
                     labelPlacement="bottom"
@@ -204,14 +197,10 @@ function AddBook() {
                   <FormControlLabel
                     value="verygood"
                     control={
-                      <IconButton onClick={() => handleChecked("verygood")}>
-                        <Good
-                          style={{
-                            width: 50,
-                            height: 50,
-                            fill: books.status === "verygood" ? "green" : "lightgray",
-                          }}
-                        />
+                      <IconButton
+                        onClick={() => handleChecked("verygood")}
+                        className={`bowl_Svg_State ${books.status === "verygood" && "active"}`}>
+                        <VeryGoodBook className="svg_type_Book" />
                       </IconButton>
                     }
                     labelPlacement="bottom"
@@ -220,14 +209,10 @@ function AddBook() {
                   <FormControlLabel
                     value="execlent"
                     control={
-                      <IconButton onClick={() => handleChecked("execlent")}>
-                        <Good
-                          style={{
-                            width: 50,
-                            height: 50,
-                            fill: books.status === "execlent" ? "green" : "lightgray",
-                          }}
-                        />
+                      <IconButton
+                        onClick={() => handleChecked("execlent")}
+                        className={`bowl_Svg_State ${books.status === "execlent" && "active"}`}>
+                        <Excellent className="svg_type_Book" />
                       </IconButton>
                     }
                     labelPlacement="bottom"
@@ -236,6 +221,7 @@ function AddBook() {
                 </div>
               </RadioGroup>
             </FormControl>
+            <br />
           </div>
         </div>
         <button className="addbookbtnn" onClick={handleaddbook}>

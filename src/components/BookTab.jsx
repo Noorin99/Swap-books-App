@@ -7,37 +7,40 @@ import TabPanel from "@material-ui/lab/TabPanel";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { store } from "../firebase/config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 function BookTab() {
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState("0");
   const [search, setSearch] = useState("");
   const [isSearch, setIsSearch] = useState(false);
   const [fbooks, setfBooks] = useState([]);
   const [books, setBooks] = useState([]);
   const navigate = useNavigate();
-  const { id, givesBooks = [] } = useSelector((state) => state.User);
+  const { id, givesBooks = [], favorites = [] } = useSelector((state) => state.User);
 
+  // to get all the books from gives
   const getGives = async () => {
     let arr = [];
     givesBooks.forEach(async (e) => {
       const docRef = doc(store, "books", e);
       const docSnap = await getDoc(docRef);
-      arr.push(docSnap.data());
+      arr.push({ ...docSnap.data(), id: docSnap.id });
       if (arr.length === givesBooks.length) {
         setBooks(arr);
       }
     });
   };
 
+  // to get all the books from favorites
   const getFavorites = async () => {
     let arr = [];
-    givesBooks.forEach(async (e) => {
+    favorites.forEach(async (e) => {
       const docRef = doc(store, "books", e);
       const docSnap = await getDoc(docRef);
-      arr.push(docSnap.data());
-      if (arr.length === givesBooks.length) {
+      arr.push({ ...docSnap.data(), id: docSnap.id });
+      if (arr.length === favorites.length) {
         setfBooks(arr);
       }
     });
@@ -50,28 +53,46 @@ function BookTab() {
     }
   }, [id]);
 
-  const searchBook = () => {
-    setIsSearch(!isSearch);
+  const checkIfFound = async () => {
+    try {
+      const { data } = await axios.get(`https://www.googleapis.com/books/v1/volumes/${search}`);
+      return data?.volumeInfo ? true : false;
+    } catch {
+      return false;
+    }
   };
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
+  const searchBook = async () => {
+    let state = await checkIfFound();
+    console.log(state);
+    if (state) return navigate(`/book/${search}`);
+    let isbn = `no_${search.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
+    const docRef = doc(store, "books", isbn);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) return navigate(`/book/${search}`);
+    setIsSearch(true);
   };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const deleteFbooks = (index) => {
-    const newfBooks = [...fbooks];
-    newfBooks.splice(index, 1);
+  const deleteFbooks = async (idBook) => {
+    let newFav = favorites.filter((e) => e !== idBook);
+    const docRef = doc(store, "users", id);
+    await updateDoc(docRef, { favorites: newFav });
+    let newfBooks = fbooks.filter((e) => e.id !== idBook);
     setfBooks(newfBooks);
   };
 
-  const handleDeleteFromFav = (index) => {
-    const newBooks = [...books];
-    newBooks.splice(index, 1);
-    setBooks(newBooks);
+  const deleteFromGives = async (idBook) => {
+    let newGives = givesBooks.filter((e) => e !== idBook);
+    let newGivesState = books.filter((e) => e.id !== idBook);
+    let usersBook = books.filter((e) => e.id === idBook);
+    usersBook = usersBook.users || {};
+    delete usersBook[idBook];
+    setBooks(newGivesState);
+    const docRef = doc(store, "users", id);
+    await updateDoc(docRef, { givesBooks: newGives }).then(async () => {
+      const docBook = doc(store, "books", idBook);
+      await updateDoc(docBook, { users: usersBook });
+    });
   };
 
   const navigateToAddBook = () => {
@@ -83,7 +104,12 @@ function BookTab() {
       <TabContext value={value}>
         {/* toggle tabs */}
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList onChange={handleChange} indicatorColor="secondary" textColor="primary">
+          <TabList
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            indicatorColor="secondary"
+            textColor="primary">
             <Tab className="tab_profile" label="أضف كتاباً" value="0" />
             <Tab className="tab_profile" label="الكتب المضافة" value="1" />
             <Tab className="tab_profile" label="الكتب المفضلة" value="2" />
@@ -99,7 +125,7 @@ function BookTab() {
               label="ابحث عن كتابك باستخدام الاسم, ISBN"
               variant="outlined"
               value={search}
-              onChange={handleSearch}
+              onChange={(e) => setSearch(e.target.value)}
               onKeyPress={(ev) => ev.key === "Enter" && searchBook()}
             />
 
@@ -128,14 +154,14 @@ function BookTab() {
         <TabPanel value="1">
           <div className="favBooks">
             {books?.length &&
-              books.map((book, index) => (
-                <div className="singleBook" key={index}>
+              books.map((book) => (
+                <div className="singleBook" key={book.id}>
                   <div className="cover_book_profile">
                     <img src={book.cover} alt={book.title} className="bookImg" />
                   </div>
                   <button
                     className="delete_favorite_profile"
-                    onClick={() => handleDeleteFromFav(index)}>
+                    onClick={() => deleteFromGives(book.id)}>
                     حذف
                   </button>
                 </div>
@@ -145,12 +171,12 @@ function BookTab() {
         <TabPanel value="2">
           {/* Each child in a list should have a unique "key" prop. */}
           <div className="favBooks">
-            {fbooks.map((book, index) => (
-              <div className="singleBook" key={index}>
+            {fbooks.map((book) => (
+              <div className="singleBook" key={book.id}>
                 <div className="cover_book_profile">
                   <img src={book.cover} alt={book.title} />
                 </div>
-                <button className="delete_favorite_profile" onClick={() => deleteFbooks(index)}>
+                <button className="delete_favorite_profile" onClick={() => deleteFbooks(book.id)}>
                   حذف
                 </button>
               </div>
