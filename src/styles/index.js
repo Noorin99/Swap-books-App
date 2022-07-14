@@ -8,6 +8,7 @@ import "./profile.css";
 import "./book.css";
 import "./signup.css";
 import "./books.css";
+import "./verifyemail.css"
 
 // components
 import "./nav.css";

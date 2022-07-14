@@ -95,7 +95,7 @@ function Nav() {
                 style={{ "--i": "1" }}
                 className="profile_mode_line">
                 <span>{fname}</span>
-                <img src={avatar} alt="" />
+                <img src={avatar} alt="avatar" />
               </div>
             ) : (
               <div onClick={() => routeTo("/signup")} className="register_button">

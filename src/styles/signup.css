@@ -1,0 +1,10 @@
+.password-exist{
+    color: blue;
+    text-decoration: underline; 
+}
+
+.check-container{
+    width: 52%;
+    display: flex;
+    justify-content: space-between;
+}

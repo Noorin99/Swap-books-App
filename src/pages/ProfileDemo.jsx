@@ -7,7 +7,6 @@ import { store } from "../firebase/config";
 function ProfileDemo() {
   const { id } = useParams();
   const [data, setData] = useState();
-  console.log(id);
 
   const getId = async () => {
     const docRef = doc(store, "users", id);
