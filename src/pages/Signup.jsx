@@ -68,7 +68,7 @@ function Signup() {
   return (
     <div className="container2">
       <form onSubmit={onSignup} className="form_modal">
-        <div className="title">
+        <div className="title-login">
           <span>بدل كتابك واحصل على أصدقاء جدد</span>
         </div>
         <button type="button" className="btn_login_With" onClick={signInWithGoogle}>
@@ -76,7 +76,7 @@ function Signup() {
           <Google />
         </button>
 
-        <div className="title">
+        <div className="title-login">
           <span>أو باستخدام الايميل</span>
         </div>
         <TextField

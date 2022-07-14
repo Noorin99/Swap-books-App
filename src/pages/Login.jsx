@@ -60,14 +60,14 @@ function Login() {
         });
       })
       .catch((error) => {
-        alert(error);
+        console.log(error)
       });
   };
 
   return (
     <div className="container2">
       <form onSubmit={onLogin} className="form_modal">
-        <div className="title">
+        <div className="title-login">
           <span>بدل كتابك واحصل على أصدقاء جدد</span>
         </div>
         <button type="button" className="btn_login_With" onClick={signInWithGoogle}>
