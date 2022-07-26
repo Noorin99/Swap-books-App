@@ -15,18 +15,20 @@ import ProfileDemo from "./pages/ProfileDemo";
 import Signup from "./pages/Signup";
 import EmailVerification from "./pages/EmailVerification";
 import ResetPassword from "./pages/ResetPassword";
-import "./styles";
 import { useDispatch } from "react-redux";
 import { setUserStore } from "./stores/User";
 import { doc, getDoc } from "firebase/firestore";
+import "./styles";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const checkAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const docRef = doc(store, "users", user.email);
+        const docRef = doc(store, "users", user.uid);
         const docSnap = await getDoc(docRef);
+        console.log(user.uid);
+        console.log(docSnap.exists());
         if (docSnap.exists()) {
           dispatch(setUserStore({ id: user.uid, ...docSnap.data() }));
         }
@@ -50,8 +52,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<ProfileDemo />} />
           <Route path="/addbook" element={<AddBook />} />
-          <Route path="/verifyemail" element={<EmailVerification />}/>
-          <Route path="/resetpassword" element={<ResetPassword/>}/>
+          <Route path="/verifyemail" element={<EmailVerification />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </main>

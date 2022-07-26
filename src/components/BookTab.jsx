@@ -120,7 +120,7 @@ function BookTab() {
         <TabPanel value="0">
           <div className="addbook">
             <TextField
-              style={{ width: 540 }}
+              className="search_input_in_profile"
               id="outlined-basic"
               label="ابحث عن كتابك باستخدام الاسم, ISBN"
               variant="outlined"

@@ -14,7 +14,6 @@ function Nav() {
   const [show, setShow] = useState(false);
   let navigate = useNavigate();
 
-  const state = true;
   useEffect(() => {
     setWidth(window.innerWidth);
     window.addEventListener("resize", (e) => {
@@ -81,7 +80,7 @@ function Nav() {
           <span>ملهــم </span>
         </div>
       </Link>
-      {!id ? (
+      {id ? (
         <PopAvatar avatar={avatar} />
       ) : (
         <Menu2 onClick={() => setShow(true)} className="menu_toggle" />

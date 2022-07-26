@@ -1,5 +1,16 @@
-.container2{
+.container2 {
     display: flex;
+}
+
+.password-exist {
+    color: blue;
+    text-decoration: underline;
+}
+
+.check-container {
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .form_modal {
@@ -97,7 +108,7 @@
     background-color: rgb(235, 235, 235);
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
     .input_login {
         width: 310px;
     }
@@ -111,25 +122,64 @@
         height: 50px;
     }
 
-    .check-container{
-        width: 300px;
-    }
-
-    .title-login{
+    .title-login {
         width: 171%;
         font-size: 1rem;
         text-align: center;
-        
+    }
+
+    .check-container {
+        width: 80%;
     }
     
-    
+}
 
+@media screen and (max-width: 700px) {
+    .container2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .input_login {
+        width: 90%;
+    }
+
+    .btn_login_With {
+        width: 90%;
+    }
+
+    .login_button {
+        width: 90%;
+        height: 50px;
+    }
+
+    .check-container {
+        width: 90%;
+    }
+
+    .title-login {
+        width: 100%;
+        font-size: 1rem;
+        text-align: center;
+
+    }
+
+    .form_modal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 83vh;
+        gap: 15px;
+    }
 
 }
 
-@media screen and (max-width: 500px){
-    .container2{
+
+@media screen and (max-width: 500px) {
+    .container2 {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -137,48 +187,22 @@
     }
 
     .title-login {
-        width: 199%;
-        font-size: 1.rem;
+        font-size: 1rem;
         text-align: center;
     }
 
     .btn_login_With {
-        width: 370px;
+        width: 90%;
     }
 
-    .check-container{
-        width: 380px;
+    .check-container {
+        width: 90%;
     }
 
-    .cover_login{
+    .cover_login {
         display: none;
     }
 
 }
 
-@media screen and (max-width: 400px){
-    .input_login {
-        width: 350px;
-    }
-
-    .btn_login_With {
-        width: 350px;
-    }
-
-    .login_button {
-        width: 350px;
-        height: 50px;
-    }
-
-    .check-container{
-        width: 330px;
-    }
-
-    .title-login{
-        width: 171%;
-        font-size: 1rem;
-        text-align: center;
-        
-    }
-
-}
+@media screen and (max-width: 400px) {}

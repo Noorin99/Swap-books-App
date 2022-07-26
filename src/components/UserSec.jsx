@@ -64,13 +64,11 @@ function UserSec({ data, edit }) {
         </div>
       </div>
       {edit && (
-        <>
-          <div className="btn_edit_profile">
-            <button onClick={() => setShowEdit(true)}>تعديل ملفك الشخصي</button>
-          </div>
-          {showEdit && <ModalEdit setShowEdit={setShowEdit} />}
-        </>
+        <div className="btn_edit_profile">
+          <button onClick={() => setShowEdit(true)}>تعديل ملفك الشخصي</button>
+        </div>
       )}
+      {showEdit && <ModalEdit setShowEdit={setShowEdit} />}
     </div>
   );
 }

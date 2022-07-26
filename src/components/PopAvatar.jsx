@@ -7,7 +7,6 @@ function PopAvatar({ avatar }) {
   let noAVatar = "https://hope.be/wp-content/uploads/2015/05/no-user-image.gif";
 
   const logout = () => {
-    setShow(false);
     signOut(auth)
       .then(() => {
         console.log("Sign-out successful.");

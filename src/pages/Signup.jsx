@@ -16,16 +16,16 @@ function Signup() {
 
   const onSignup = async (e) => {
     e.preventDefault();
-    let log = { email, password, fname };
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then(({ user }) => {
+        console.log({ uidFF: user.uid });
         sendEmailVerification(auth.currentUser).then(async (userCredential) => {
-          location.assign("/verifyemail");
-          const user = userCredential.user;
-          await setDoc(doc(store, "users", user.email), {
+          await setDoc(doc(store, "users", user.uid), {
             fname,
             email,
             DOJ: Date.now(),
+          }).then(() => {
+            location.assign("/verifyemail");
           });
         });
       })
@@ -46,14 +46,14 @@ function Signup() {
     signInWithPopup(auth, provider)
       .then((result) => {
         const fname = result.user.displayName;
-        const email = result.user.email;
-        getDoc(doc(store, "users", email)).then((docSnap) => {
+        const uid = result.user.uid;
+        getDoc(doc(store, "users", uid)).then((docSnap) => {
           if (docSnap.exists()) {
             location.assign("/profile");
           } else {
-            setDoc(doc(store, "users", email), {
+            setDoc(doc(store, "users", uid), {
               fname,
-              email,
+              uid,
               DOJ: Date.now(),
             });
             location.assign("/profile");
