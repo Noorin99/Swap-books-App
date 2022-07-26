@@ -21,7 +21,6 @@ function Books() {
       setData(data?.items);
       console.log(data.items[0]);
     } catch {
-      // retuen
       console.log("error");
     }
   };
@@ -45,7 +44,6 @@ function Books() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-
         <FormControl className="bowl_in_filter">
           <InputLabel id="demo-simple-select-label">اللغة</InputLabel>
           <Select

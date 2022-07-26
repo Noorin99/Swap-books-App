@@ -27,8 +27,6 @@ function App() {
       if (user) {
         const docRef = doc(store, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        console.log(user.uid);
-        console.log(docSnap.exists());
         if (docSnap.exists()) {
           dispatch(setUserStore({ id: user.uid, ...docSnap.data() }));
         }
