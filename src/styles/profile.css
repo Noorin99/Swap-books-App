@@ -310,6 +310,10 @@ a, u {
     margin: auto;
 }
 
+.title_vaild {
+    padding-right: 20px;
+}
+
 .createprofile {
     width: 250px;
     height: 50px;

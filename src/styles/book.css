@@ -137,6 +137,23 @@
   gap: 180px;
 }
 
+.dialog-title-sub2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 200px;
+}
+
+
+.dialog-title-sub2 a {
+  background-color: #00a560;
+  padding: 10px 25px;
+  border-radius: 30px;
+  color: #fff;
+}
+
+
 .book-status {
   font-size: 0.9rem;
   color: #0d4e32;

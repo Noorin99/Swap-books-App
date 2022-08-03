@@ -10,10 +10,7 @@ import { storage, store } from "../firebase/config";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 
-const Input = styled("input")({
-  display: "none",
-});
-
+const Input = styled("input")({ display: "none" });
 const cityList = ["غزة", "جباليا", "خانيونس", "رفح"];
 
 function ModalEdit({ setShowEdit }) {
@@ -21,40 +18,54 @@ function ModalEdit({ setShowEdit }) {
   const user = useSelector((state) => state.User);
   const [coverReader, setCoverReader] = useState("");
   const [fileAvatar, setFileAvatar] = useState();
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     setData(user);
     console.log(user);
   }, [user]);
 
-  const handleData = (data) => {
-    setData(data);
-  };
-
   const onFinish = async (e) => {
     e.preventDefault();
-    uploadAVatar();
+    let { avatar, city, description, facebook, fname, instagram, twitter } = data;
+
+    if (
+      (avatar || fileAvatar) &&
+      description &&
+      city &&
+      fname &&
+      (instagram || facebook || twitter)
+    ) {
+      setIsValid(false);
+      uploadAVatar();
+    } else {
+      setIsValid(true);
+    }
   };
 
   const uploadAVatar = () => {
-    const path = `avatars/${Date.now()}_${fileAvatar.name.replace(/([^a-z0-9.]+)/gi, "")}`;
-    let fileRef = ref(storage, path);
-    const upload = uploadBytesResumable(fileRef, fileAvatar);
-    upload.on(
-      "state_changed",
-      async (sanpshot) => {
-        const progress = (sanpshot.bytesTransferred / sanpshot.totalBytes) * 100;
-        console.log(progress, " %");
-      },
-      (error) => {
-        console.log(error.code);
-      },
-      async () => {
-        let imgPath = await getDownloadURL(upload.snapshot.ref);
-        console.log(imgPath);
-        updateData(imgPath);
-      }
-    );
+    if (fileAvatar) {
+      const path = `avatars/${Date.now()}_${fileAvatar.name.replace(/([^a-z0-9.]+)/gi, "")}`;
+      let fileRef = ref(storage, path);
+      const upload = uploadBytesResumable(fileRef, fileAvatar);
+      upload.on(
+        "state_changed",
+        async (sanpshot) => {
+          const progress = (sanpshot.bytesTransferred / sanpshot.totalBytes) * 100;
+          console.log(progress, " %");
+        },
+        (error) => {
+          console.log(error.code);
+        },
+        async () => {
+          let imgPath = await getDownloadURL(upload.snapshot.ref);
+          console.log(imgPath);
+          updateData(imgPath);
+        }
+      );
+    } else {
+      updateData(data.avatar);
+    }
   };
 
   const updateData = async (avatar) => {
@@ -66,7 +77,6 @@ function ModalEdit({ setShowEdit }) {
   };
 
   const setCover = (e) => {
-    // handleData({ ...data, image: imageBase });
     let file = e.target.files[0];
     setFileAvatar(file);
     let reader = new FileReader();
@@ -126,7 +136,7 @@ function ModalEdit({ setShowEdit }) {
             value={data.description}
             label="أدخل وصف قصير عن نفسك"
             variant="outlined"
-            onChange={(e) => handleData({ ...data, description: e.target.value })}
+            onChange={(e) => setData({ ...data, description: e.target.value })}
           />
 
           {/* my location city */}
@@ -136,7 +146,7 @@ function ModalEdit({ setShowEdit }) {
             options={cityList}
             sx={{ width: "100%", marginTop: "1rem" }}
             renderInput={(params) => <TextField {...params} label="الموقع" />}
-            onChange={(e, sCity) => handleData({ ...data, city: sCity })}
+            onChange={(e, sCity) => setData({ ...data, city: sCity })}
           />
 
           <div className="titlesocail">
@@ -155,7 +165,7 @@ function ModalEdit({ setShowEdit }) {
             value={data.facebook}
             type="url"
             variant="outlined"
-            onChange={(e) => handleData({ ...data, facebook: e.target.value })}
+            onChange={(e) => setData({ ...data, facebook: e.target.value })}
           />
           <TextField
             sx={{ width: "100%", marginTop: "1rem" }}
@@ -166,7 +176,7 @@ function ModalEdit({ setShowEdit }) {
             label={<Instagram />}
             value={data.instagram}
             variant="outlined"
-            onChange={(e) => handleData({ ...data, instagram: e.target.value })}
+            onChange={(e) => setData({ ...data, instagram: e.target.value })}
           />
           <TextField
             sx={{ width: "100%", marginTop: "1rem" }}
@@ -177,9 +187,14 @@ function ModalEdit({ setShowEdit }) {
             focused={data.twitter ? true : false}
             value={data.twitter}
             variant="outlined"
-            onChange={(e) => handleData({ ...data, twitter: e.target.value })}
+            onChange={(e) => setData({ ...data, twitter: e.target.value })}
           />
         </DialogContent>
+        {isValid && (
+          <div className="title_vaild">
+            <span>الرجاء ادخال جميع البيانات </span>
+          </div>
+        )}
         <DialogActions sx={{ mb: 2 }}>
           <button className="modalbtn">حفظ التعديلات</button>
         </DialogActions>

@@ -28,7 +28,14 @@ function App() {
         const docRef = doc(store, "users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          dispatch(setUserStore({ id: user.uid, ...docSnap.data() }));
+          let { avatar, city, description, fname, instagram, facebook, twitter } = docSnap.data();
+          if (avatar && description && city && fname && (instagram || facebook || twitter)) {
+            dispatch(setUserStore({ id: user.uid, ...docSnap.data(), profile: true }));
+            console.log("profile completed");
+          } else {
+            dispatch(setUserStore({ id: user.uid, ...docSnap.data(), profile: false }));
+            console.log("profile not completed");
+          }
         }
       } else {
         console.log("not logged");
