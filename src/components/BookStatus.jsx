@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -13,15 +13,11 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 function BookStatus({ setShowGive, giveBook, status, setStatus }) {
-  const { profile } = useSelector((state) => state.User);
-  const [isCompleted, setIsCompleted] = useState(false);
-  useEffect(() => {
-    setIsCompleted(profile);
-  }, [profile]);
+  const { profile, id } = useSelector((state) => state.User);
 
   return (
     <Dialog disableEscapeKeyDown open={true} onClose={() => setShowGive(false)}>
-      {isCompleted ? (
+      {profile ? (
         <>
           <div className="dialog-title">
             <DialogTitle>حدد حالة الكتاب</DialogTitle>
@@ -65,10 +61,15 @@ function BookStatus({ setShowGive, giveBook, status, setStatus }) {
             <Button onClick={() => setShowGive(false)}>إلغاء</Button>
           </DialogActions>
         </>
-      ) : (
+      ) : id ? (
         <div className="dialog-title-sub2">
           <DialogTitle>يرجى اكمال ملفك الشخصي قبل البدء في اعطاء اي كتاب</DialogTitle>
           <Link to="/profile">قم بتعديل الملف الشخصي</Link>
+        </div>
+      ) : (
+        <div className="dialog-title-sub2">
+          <DialogTitle>يرجى تسجيل الدخول اولا الى حسابك!</DialogTitle>
+          <Link to="/login">تسجيل الدخول الان</Link>
         </div>
       )}
     </Dialog>

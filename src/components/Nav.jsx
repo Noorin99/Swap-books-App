@@ -38,9 +38,11 @@ function Nav() {
         <Link className="header_elements" to="/">
           <span>الصفحة الرئيسية</span>
         </Link>
-        <Link className="header_elements" to="/AddBook">
-          <span>أعط كتاب</span>
-        </Link>
+        {id && (
+          <Link className="header_elements" to="/AddBook">
+            <span>أعط كتاب</span>
+          </Link>
+        )}
         <Link className="header_elements" to="/books">
           <span>ابحث عن كتب</span>
         </Link>
@@ -63,14 +65,6 @@ function Nav() {
           </div>
         </Link>
       )}
-
-      <div className="flow_menu">
-        <Backmenuflow />
-        <div className="title_menu_flow">
-          <span>القائمة</span>
-          <Menu />
-        </div>
-      </div>
     </nav>
   ) : (
     <nav>
@@ -108,12 +102,14 @@ function Nav() {
             <div style={{ "--i": "2" }} className="profile_mode_line" onClick={() => routeTo("/")}>
               <span>الصفحة الرئيسية</span>
             </div>
-            <div
-              style={{ "--i": "3" }}
-              className="profile_mode_line"
-              onClick={() => routeTo("/AddBook")}>
-              <span>أعط كتاب</span>
-            </div>
+            {id && (
+              <div
+                style={{ "--i": "3" }}
+                className="profile_mode_line"
+                onClick={() => routeTo("/AddBook")}>
+                <span>أعط كتاب</span>
+              </div>
+            )}
             <div
               style={{ "--i": "4" }}
               className="profile_mode_line"

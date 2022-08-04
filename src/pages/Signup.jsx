@@ -18,13 +18,9 @@ function Signup() {
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        console.log({ uidFF: user.uid });
-        sendEmailVerification(auth.currentUser).then(async (userCredential) => {
-          await setDoc(doc(store, "users", user.uid), {
-            fname,
-            email,
-            DOJ: Date.now(),
-          }).then(() => {
+        sendEmailVerification(auth.currentUser).then(async () => {
+          let log = { fname, email, DOJ: Date.now() };
+          await setDoc(doc(store, "users", user.uid), log).then(() => {
             location.assign("/verifyemail");
           });
         });
@@ -42,26 +38,35 @@ function Signup() {
       });
   };
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     signInWithPopup(auth, provider)
-      .then((result) => {
-        const fname = result.user.displayName;
-        const uid = result.user.uid;
-        getDoc(doc(store, "users", uid)).then((docSnap) => {
-          if (docSnap.exists()) {
+      .then(async ({ user }) => {
+        const { uid, displayName, email, photoURL } = user;
+        let docSnap = await getDoc(doc(store, "users", uid));
+        console.log(docSnap.exists());
+        if (docSnap.exists()) {
+          location.assign("/profile");
+        } else {
+          let log = {
+            fname: displayName,
+            email,
+            avatar: photoURL,
+            DOJ: Date.now(),
+          };
+          setDoc(doc(store, "users", uid), log).then(() => {
             location.assign("/profile");
-          } else {
-            setDoc(doc(store, "users", uid), {
-              fname,
-              uid,
-              DOJ: Date.now(),
-            });
-            location.assign("/profile");
-          }
-        });
+          });
+        }
       })
       .catch((error) => {
-        alert(error);
+        const errorCode = error.message;
+        if (errorCode == "Firebase: Error (auth/wrong-password).") {
+          setErrorMessage("الإيميل أو كلمة المرور خطأ");
+        } else if (errorCode == "Firebase: Error (auth/user-not-found).") {
+          setErrorMessage("لا يوجد حساب منشأ بواسطة الإيميل المدخل. قم بانشاء حساب جديد!");
+        } else {
+          setErrorMessage(errorCode);
+        }
       });
   };
 

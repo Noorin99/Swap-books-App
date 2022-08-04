@@ -28,7 +28,6 @@ function ModalEdit({ setShowEdit }) {
   const onFinish = async (e) => {
     e.preventDefault();
     let { avatar, city, description, facebook, fname, instagram, twitter } = data;
-
     if (
       (avatar || fileAvatar) &&
       description &&
@@ -37,13 +36,14 @@ function ModalEdit({ setShowEdit }) {
       (instagram || facebook || twitter)
     ) {
       setIsValid(false);
-      uploadAVatar();
+      uploadAvatar();
+      console.log("done");
     } else {
       setIsValid(true);
     }
   };
 
-  const uploadAVatar = () => {
+  const uploadAvatar = () => {
     if (fileAvatar) {
       const path = `avatars/${Date.now()}_${fileAvatar.name.replace(/([^a-z0-9.]+)/gi, "")}`;
       let fileRef = ref(storage, path);

@@ -153,19 +153,20 @@ function BookTab() {
         </TabPanel>
         <TabPanel value="1">
           <div className="favBooks">
-            {books?.length &&
-              books.map((book) => (
-                <div className="singleBook" key={book.id}>
-                  <div className="cover_book_profile">
-                    <img src={book.cover} alt={book.title} className="bookImg" />
+            {books?.length
+              ? books.map((book) => (
+                  <div className="singleBook" key={book.id}>
+                    <div className="cover_book_profile">
+                      <img src={book.cover} alt={book.title} className="bookImg" />
+                    </div>
+                    <button
+                      className="delete_favorite_profile"
+                      onClick={() => deleteFromGives(book.id)}>
+                      حذف
+                    </button>
                   </div>
-                  <button
-                    className="delete_favorite_profile"
-                    onClick={() => deleteFromGives(book.id)}>
-                    حذف
-                  </button>
-                </div>
-              ))}
+                ))
+              : null}
           </div>
         </TabPanel>
         <TabPanel value="2">

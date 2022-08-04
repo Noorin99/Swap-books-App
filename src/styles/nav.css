@@ -78,49 +78,12 @@ nav {
     width: 70%;
 }
 
-/* flow menu */
-.flow_menu {
-    position: fixed;
-    left: 0;
-    width: 100px;
-    top: 50%;
-    transform: translate(-30%, -50%);
-    user-select: none;
-    cursor: pointer;
-}
-
-.title_menu_flow {
-    position: absolute;
-    top: 44%;
-    right: -30px;
-    width: 150px;
-    transform: rotate(-90deg);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    color: var(--white);
-    font-family: var(--elmessiri);
-    font-size: var(--sub_title);
-}
-
 .flow_menu.mode {
     top: 40%;
     left: -20px;
 }
 
-.title_menu_flow.mode {
-    top: 40%;
-    right: -45px;
-}
-
-
-
-
-/* nice animation by noor */
-
-
-
-
+/* nice animation by noor :) */
 .pop_menu {
     background-color: var(--green);
     position: fixed;
@@ -169,8 +132,6 @@ nav {
     }
 }
 
-
-
 .content_pop_menu {
     opacity: 0;
     transform: scale(.3);
@@ -187,7 +148,6 @@ nav {
         transform: scale(1);
     }
 }
-
 
 .profile_mode_line {
     display: flex;
@@ -210,7 +170,6 @@ nav {
     background-color: #475185b7;
 }
 
-
 @keyframes statLineMenu {
     100% {
         opacity: 1;
@@ -224,7 +183,6 @@ nav {
     border-radius: 50%;
     margin-right: 10px;
 }
-
 
 .close_pop_menu {
     background-color: #f34a33;
@@ -254,10 +212,6 @@ nav {
     height: 44px;
 }
 
-
 .menu_toggle {
     cursor: pointer;
-    /* fill: var(--green); */
-    /* color: red; */
-    /* background-color: blue; */
 }

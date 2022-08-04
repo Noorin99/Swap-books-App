@@ -6,11 +6,9 @@
     margin-top: 14vh;
 }
 
-
 .cover_Add_book {
     width: 40vh;
 }
-
 
 .divwithbtn {
     display: flex;
@@ -49,6 +47,11 @@
     border: transparent;
 }
 
+.FormControl_Addbook,
+.textfield_Addbook {
+    width: 350px;
+}
+
 .preview_img {
     width: 350px;
     height: 200px;
@@ -71,10 +74,6 @@
     margin-bottom: 20px;
 }
 
-.textfield_Addbook {
-    width: 300px;
-}
-
 .bowl_Svg_State {
     width: 100px;
     height: 100px;
@@ -95,6 +94,17 @@
         margin-bottom: 40px;
     }
 }
+
+@media screen and (max-width: 800px) {
+
+    .FormControl_Addbook,
+    .textfield_Addbook {
+        width: 300px;
+    }
+
+}
+
+
 
 @media screen and (max-width: 700px) {
     .bothdiv {
@@ -126,10 +136,14 @@
         height: 35px;
     }
 
+
+    .FormControl_Addbook,
     .textfield_Addbook {
         width: 90vw;
     }
+
 }
+
 .bowl_Svg_State.active {
     border: solid 1px #00A560 !important;
 }

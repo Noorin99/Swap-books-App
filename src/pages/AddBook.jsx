@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  Autocomplete,
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  RadioGroup,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, Button, TextField, Alert } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { PhotoCamera } from "@mui/icons-material";
 import { store } from "../firebase/config";
@@ -17,6 +8,10 @@ import { useSelector } from "react-redux";
 import { ReactComponent as Excellent } from "../assets/Excellent.svg";
 import { ReactComponent as VeryGoodBook } from "../assets/VeryGoodBook.svg";
 import { ReactComponent as GoodBook } from "../assets/GoodBook.svg";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import OutlinedInput from "@mui/material/OutlinedInput";
 
 const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -57,32 +52,36 @@ function AddBook() {
     description: "",
     category: "",
   });
-  const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
 
-  const handleChecked = (status) => {
-    setBook({ ...books, status });
-  };
+  const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleaddbook = async (e) => {
     e.preventDefault();
-    let { isbn } = books;
-    const pathID = `no_${isbn.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
-    const docRef = doc(store, "books", pathID);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      let newGives = [...givesBooks, pathID];
-      const docRef = doc(store, "users", idUser);
-      await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-        console.log("update user 1");
-      });
+    console.log(books);
+    let { author, category, cover, description, isbn, language, status, title } = books;
+    if (!author || !category || !cover || !description || !isbn || !language || !status || !title) {
+      setErrorMessage("تأكد من ادخال جميع البيانات بشكل صحيح");
     } else {
-      await setDoc(doc(store, "books", pathID), { ...books, id: pathID }).then(async () => {
+      setErrorMessage("");
+      const pathID = `no_${isbn.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
+      const docRef = doc(store, "books", pathID);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
         let newGives = [...givesBooks, pathID];
         const docRef = doc(store, "users", idUser);
         await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-          console.log("update user 2");
+          console.log("update user 1");
         });
-      });
+      } else {
+        await setDoc(doc(store, "books", pathID), { ...books, id: pathID }).then(async () => {
+          let newGives = [...givesBooks, pathID];
+          const docRef = doc(store, "users", idUser);
+          await updateDoc(docRef, { givesBooks: newGives }).then(() => {
+            console.log("update user 2");
+          });
+        });
+      }
     }
   };
 
@@ -152,7 +151,7 @@ function AddBook() {
               <Button
                 variant="outlined"
                 component="span"
-                className="textfield_Addbook"
+                className="FormControl_Addbook"
                 sx={{
                   height: "56px",
                   display: "flex",
@@ -165,65 +164,36 @@ function AddBook() {
 
               {books.cover && "تم اضافة الصورة بنجاح"}
             </label>
-
             <TextField
               id="filled-multiline-static"
               label="وصف الكتاب"
               variant="outlined"
               multiline
               rows={5}
+              className="FormControl_Addbook"
               onChange={(e) => setBook({ ...books, description: e.target.value })}
             />
-
-            <FormControl className="conterol_Bowl">
-              <FormLabel id="demo-radio-buttons-group-label">حالة الكتاب</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="good"
-                name="radio-buttons-group">
-                <div className="rating">
-                  <FormControlLabel
-                    value="good"
-                    control={
-                      <IconButton
-                        onClick={() => handleChecked("good")}
-                        className={`bowl_Svg_State ${books.status === "good" && "active"}`}>
-                        <GoodBook className="svg_type_Book" />
-                      </IconButton>
-                    }
-                    labelPlacement="bottom"
-                    label="جيد"
-                  />
-                  <FormControlLabel
-                    value="verygood"
-                    control={
-                      <IconButton
-                        onClick={() => handleChecked("verygood")}
-                        className={`bowl_Svg_State ${books.status === "verygood" && "active"}`}>
-                        <VeryGoodBook className="svg_type_Book" />
-                      </IconButton>
-                    }
-                    labelPlacement="bottom"
-                    label="جيد جداً"
-                  />
-                  <FormControlLabel
-                    value="execlent"
-                    control={
-                      <IconButton
-                        onClick={() => handleChecked("execlent")}
-                        className={`bowl_Svg_State ${books.status === "execlent" && "active"}`}>
-                        <Excellent className="svg_type_Book" />
-                      </IconButton>
-                    }
-                    labelPlacement="bottom"
-                    label="ممتازة"
-                  />
-                </div>
-              </RadioGroup>
+            <FormControl className="FormControl_Addbook">
+              <InputLabel htmlFor="demo-dialog-native">حالة الكتاب</InputLabel>
+              <Select
+                native
+                value={books.status}
+                onChange={(event) => {
+                  setBook({ ...books, status: Number(event.target.value) || "" });
+                }}
+                input={<OutlinedInput label="Age" id="demo-dialog-native" />}>
+                <option aria-label="None" value="" />
+                <option value={1}>كالجديد</option>
+                <option value={2}>ممتاز</option>
+                <option value={3}>جيد جدا</option>
+                <option value={4}>جيد</option>
+                <option value={5}>قابل للاستخدام</option>
+              </Select>
             </FormControl>
-            <br />
           </div>
         </div>
+        {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
+
         <button className="addbookbtnn" onClick={handleaddbook}>
           اضافة
         </button>

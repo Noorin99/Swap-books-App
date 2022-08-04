@@ -9,8 +9,8 @@ function PopAvatar({ avatar }) {
   const logout = () => {
     signOut(auth)
       .then(() => {
-        console.log("Sign-out successful.");
-        location.reload();
+        console.log("Gg");
+        location.replace("/login");
       })
       .catch((error) => {
         console.log("An error happened.", error);

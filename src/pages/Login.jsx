@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ReactComponent as Picture } from "../assets/images/community.svg";
 import { ReactComponent as Google } from "../assets/icons/google.svg";
 import { TextField, Alert } from "@mui/material";
-import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, provider, store } from "../firebase/config";
 import { signInWithPopup } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
@@ -16,10 +16,9 @@ function Login() {
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+      .then((user) => {
         if (auth.currentUser.emailVerified) {
-          window.location.assign("/profile");
+          location.assign("/profile");
         } else {
           setError(true);
           setErrorMessage("يجب عليك تأكيد الإيميل المرسل قبل تسجيل الدخول!");
@@ -40,27 +39,32 @@ function Login() {
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then(() => {
-        location.assign("/profile");
-      })
-      .then((result) => {
-        const email = result.user.email;
-        const fname = result.user.displayName;
-        getDoc(doc(store, "users", email)).then((docSnap) => {
-          if (docSnap.exists()) {
+      .then(async ({ user }) => {
+        const { uid, displayName, email, photoURL } = user;
+        let docSnap = await getDoc(doc(store, "users", uid));
+        if (docSnap.exists()) {
+          location.assign("/profile");
+        } else {
+          let log = {
+            fname: displayName,
+            email,
+            avatar: photoURL,
+            DOJ: Date.now(),
+          };
+          setDoc(doc(store, "users", uid), log).then(() => {
             location.assign("/profile");
-          } else {
-            setDoc(doc(store, "users", email), {
-              fname,
-              email,
-              DOJ: Date.now(),
-            });
-            location.assign("/profile");
-          }
-        });
+          });
+        }
       })
       .catch((error) => {
-        console.log(error)
+        const errorCode = error.message;
+        if (errorCode == "Firebase: Error (auth/wrong-password).") {
+          setErrorMessage("الإيميل أو كلمة المرور خطأ");
+        } else if (errorCode == "Firebase: Error (auth/user-not-found).") {
+          setErrorMessage("لا يوجد حساب منشأ بواسطة الإيميل المدخل. قم بانشاء حساب جديد!");
+        } else {
+          setErrorMessage(errorCode);
+        }
       });
   };
 

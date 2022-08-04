@@ -12,6 +12,8 @@ import { Markup } from "interweave";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { store } from "../firebase/config";
 import { setUserStore } from "../stores/User";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const STATUS = ["كالجديد", "ممتاز", "جيد جدا", "جيد", "قابل للاستخدام"];
 function Book() {
@@ -24,6 +26,7 @@ function Book() {
   const pathID = `no_${id.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
   const [gives, setGives] = useState();
   const [profilesGives, setProfilesGives] = useState([]);
+  const [checkFav, setCheckFav] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,18 +60,23 @@ function Book() {
   }, [idUser]);
 
   const addToFavorite = async () => {
-    let oldFav = favorites || [];
-    let latest = [];
-    if (oldFav.includes(pathID)) {
-      latest = oldFav.filter((e) => e !== pathID);
+    if (!idUser) {
+      setCheckFav(true);
     } else {
-      latest = [...oldFav, pathID];
+      setCheckFav(false);
+      let oldFav = favorites || [];
+      let latest = [];
+      if (oldFav.includes(pathID)) {
+        latest = oldFav.filter((e) => e !== pathID);
+      } else {
+        latest = [...oldFav, pathID];
+      }
+      const upData = doc(store, "users", idUser);
+      await updateDoc(upData, { favorites: latest }).then(async () => {
+        const docSnap = await getDoc(upData);
+        dispatch(setUserStore({ ...docSnap.data() }));
+      });
     }
-    const upData = doc(store, "users", idUser);
-    await updateDoc(upData, { favorites: latest }).then(async () => {
-      const docSnap = await getDoc(upData);
-      dispatch(setUserStore({ ...docSnap.data() }));
-    });
   };
 
   const updateUserGives = async () => {
@@ -138,6 +146,14 @@ function Book() {
 
   return (
     <div className="container">
+      {checkFav && (
+        <Dialog disableEscapeKeyDown open={true} onClose={() => setCheckFav(false)}>
+          <div className="dialog-title-sub2">
+            <DialogTitle>يرجى تسجيل الدخول اولا الى حسابك!</DialogTitle>
+            <Link to="/login">تسجيل الدخول الان</Link>
+          </div>
+        </Dialog>
+      )}
       <div className="book-details-container">
         <div className="cover-container">
           <img className="cover" src={data?.imageLinks?.smallThumbnail} alt="cover" />
@@ -188,7 +204,7 @@ function Book() {
       <div className="users-container">
         <div className="title2">الكتاب متوفر لدى المستخدم</div>
         <div className="users">
-          {profilesGives.length &&
+          {profilesGives.length ? (
             profilesGives.map(({ id, avatar, fname, city, status }) => (
               <div className="user" key={id}>
                 <div className="avatar">
@@ -209,7 +225,10 @@ function Book() {
                   شاهد الملف الشخصي
                 </Link>
               </div>
-            ))}
+            ))
+          ) : (
+            <div className="valid_books">لا يوجد كتب متوفرة</div>
+          )}
         </div>
       </div>
     </div>

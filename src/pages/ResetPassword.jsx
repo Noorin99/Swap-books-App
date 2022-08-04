@@ -1,31 +1,29 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 import { ReactComponent as Picture } from "../assets/images/community.svg";
 import { TextField } from "@mui/material";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth, provider, store } from "../firebase/config";
-
-
-
+import { auth } from "../firebase/config";
 
 function ResetPassword() {
   const [email, setEmail] = useState("");
 
   sendPasswordResetEmail(auth, email)
-  .then(() => {
-    alert('sent')
-  })
-  .catch((error) => {
-    const errorMessage = error.message;
-  });
-    
+    .then(() => {
+      alert("sent");
+    })
+    .catch((error) => {
+      const errorMessage = error.message;
+      console.log(errorMessage);
+    });
+
   return (
     <div className="container2">
-      <form  onSubmit={sendPasswordResetEmail} className="form_modal">
+      <form onSubmit={sendPasswordResetEmail} className="form_modal">
         <div className="title">
           <span>أدخل الإيميل لاستعادة كلمة المرور</span>
         </div>
-      
+
         <TextField
           id="outlined-basic"
           label="أدخل الايميل"
@@ -37,7 +35,7 @@ function ResetPassword() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-       
+
         <button type="submit" className="login_button">
           متابعة
         </button>
@@ -47,7 +45,7 @@ function ResetPassword() {
         <Picture />
       </div>
     </div>
-  )
+  );
 }
 
-export default ResetPassword
+export default ResetPassword;
