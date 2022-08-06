@@ -209,7 +209,7 @@
 
 .description {
   font-size: 0.8rem;
-  height: 250px;
+  max-height: 250px;
   overflow: auto;
   width: 80%;
   padding-left: 20px;

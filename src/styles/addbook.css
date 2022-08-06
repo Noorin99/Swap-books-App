@@ -42,9 +42,12 @@
     background-color: #00A560;
     color: white;
     font-size: 14px;
-    font-family: cairo;
+    font-family: var(--cairo);
     font-weight: bold;
     border: transparent;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .FormControl_Addbook,
@@ -146,4 +149,9 @@
 
 .bowl_Svg_State.active {
     border: solid 1px #00A560 !important;
+}
+
+.cover_Add_Book{
+    width: 100px;
+    margin-right: auto;
 }

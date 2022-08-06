@@ -14,6 +14,7 @@ function Books() {
     let value =
       query && categories ? query + categories : query ? query : categories ? categories : "books";
     let lng = lang || "ar";
+    console.log({ value, lng });
     try {
       let { data } = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${value}&langRestrict=${lng}&key=AIzaSyBcd2dek9-5LPhIii3Y1mjr867aFfz2-gI&maxResults=25`

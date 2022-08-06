@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Autocomplete, Button, TextField, Alert } from "@mui/material";
+import { Autocomplete, Button, TextField, Alert, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { PhotoCamera } from "@mui/icons-material";
-import { store } from "../firebase/config";
+import { storage, store } from "../firebase/config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
-import { ReactComponent as Excellent } from "../assets/Excellent.svg";
-import { ReactComponent as VeryGoodBook } from "../assets/VeryGoodBook.svg";
-import { ReactComponent as GoodBook } from "../assets/GoodBook.svg";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -52,35 +50,77 @@ function AddBook() {
     description: "",
     category: "",
   });
+  const [coverEvent, setCoverEvent] = useState();
+  const [loaderUp, setLoaderUp] = useState(false);
 
-  const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
+  const { id: idUser, givesBooks = [] } = useSelector((state) => state.User);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleaddbook = async (e) => {
     e.preventDefault();
-    console.log(books);
     let { author, category, cover, description, isbn, language, status, title } = books;
-    if (!author || !category || !cover || !description || !isbn || !language || !status || !title) {
+    if (
+      !author ||
+      !category ||
+      !cover ||
+      !coverEvent ||
+      !description ||
+      !isbn ||
+      !language ||
+      !status ||
+      !title
+    ) {
       setErrorMessage("تأكد من ادخال جميع البيانات بشكل صحيح");
     } else {
       setErrorMessage("");
-      const pathID = `no_${isbn.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
-      const docRef = doc(store, "books", pathID);
-      const docSnap = await getDoc(docRef);
+      setLoaderUp(true);
+
+      let isbnSpaces = isbn.replace(/\s/g, "").toLowerCase();
+      const pathID = `no_${isbnSpaces.replace(/([^a-z0-9.]+)/gi, "")}`;
+      const refBook = doc(store, "books", pathID);
+      const docSnap = await getDoc(refBook);
       if (docSnap.exists()) {
         let newGives = [...givesBooks, pathID];
-        const docRef = doc(store, "users", idUser);
-        await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-          console.log("update user 1");
-        });
-      } else {
-        await setDoc(doc(store, "books", pathID), { ...books, id: pathID }).then(async () => {
-          let newGives = [...givesBooks, pathID];
-          const docRef = doc(store, "users", idUser);
-          await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-            console.log("update user 2");
+        const refUser = doc(store, "users", idUser);
+        await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
+          let users = { ...docSnap.data().users, [idUser]: status };
+          await updateDoc(refBook, { users }).then(() => {
+            location.assign(`/book/${isbnSpaces}`);
           });
         });
+      } else {
+        console.log(coverEvent);
+        console.log(coverEvent.name);
+        const path = `covers/${Date.now()}_${coverEvent.name.replace(/([^a-z0-9.]+)/gi, "")}`;
+        let fileRef = ref(storage, path);
+        const upload = uploadBytesResumable(fileRef, coverEvent);
+        upload.on(
+          "state_changed",
+          async (sanpshot) => {
+            const progress = (sanpshot.bytesTransferred / sanpshot.totalBytes) * 100;
+            console.log(progress, " %");
+          },
+          (error) => {
+            console.log(error.code);
+          },
+          async () => {
+            let imgPath = await getDownloadURL(upload.snapshot.ref);
+            await setDoc(doc(store, "books", pathID), {
+              ...books,
+              cover: imgPath,
+              id: pathID,
+            }).then(async () => {
+              let newGives = [...givesBooks, pathID];
+              const refUser = doc(store, "users", idUser);
+              await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
+                let users = { [idUser]: status };
+                await updateDoc(refBook, { users }).then(() => {
+                  location.assign(`/book/${isbnSpaces}`);
+                });
+              });
+            });
+          }
+        );
       }
     }
   };
@@ -144,7 +184,9 @@ function AddBook() {
                 id="icon-button-file"
                 name="logo"
                 onChange={async (event) => {
-                  const imageBase = await convertToBase64(event.currentTarget.files[0]);
+                  let file = event.currentTarget.files[0];
+                  setCoverEvent(file);
+                  const imageBase = await convertToBase64(file);
                   setBook({ ...books, cover: imageBase });
                 }}
               />
@@ -160,6 +202,7 @@ function AddBook() {
                 }}>
                 <PhotoCamera sx={{ mr: 1, color: "#00A560" }} />
                 غلاف الكتاب
+                {books?.cover ? <img className="cover_Add_Book" src={books.cover} alt="" /> : null}
               </Button>
 
               {books.cover && "تم اضافة الصورة بنجاح"}
@@ -192,10 +235,13 @@ function AddBook() {
             </FormControl>
           </div>
         </div>
+
         {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
+        <br />
 
         <button className="addbookbtnn" onClick={handleaddbook}>
           اضافة
+          {loaderUp ? <CircularProgress color="inherit" size={25} /> : null}
         </button>
       </div>
       <div className="cover_Add_book">

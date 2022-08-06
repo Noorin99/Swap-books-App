@@ -23,26 +23,48 @@ function Book() {
   const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
   const dispatch = useDispatch();
   const [status, setStatus] = useState("");
-  const pathID = `no_${id.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
   const [gives, setGives] = useState();
   const [profilesGives, setProfilesGives] = useState([]);
   const [checkFav, setCheckFav] = useState(false);
+  const pathID = `no_${id.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
 
+  // console.log({
+  //   pathID,
+  //   id,
+  // });
+
+  const getBookApi = async () => {
+    const { data } = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
+
+    let log = {
+      cover: data?.volumeInfo?.imageLinks?.smallThumbnail,
+      title: data?.volumeInfo?.title,
+      author: data?.volumeInfo?.authors[0],
+      description: data?.volumeInfo?.description,
+    };
+    setData(log);
+  };
+
+  const getBookToggle = async () => {
+    let test = await getBookApi().catch(async () => {
+      console.log("===");
+      // check now on firebase
+      const docSnap = await getDoc(doc(store, "books", pathID));
+      console.log(docSnap.data());
+      setData(docSnap.data());
+    });
+  };
   useEffect(() => {
-    async function fetchData() {
-      const { data } = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
-      setData(data?.volumeInfo);
-    }
-    fetchData();
+    getBookToggle();
   }, []);
 
   const getWhoGives = async () => {
-    setGives([]);
-    setProfilesGives([]);
     const docRef = doc(store, "books", pathID);
     const docSnap = await getDoc(docRef);
+
     if (docSnap.exists()) {
       let { users } = docSnap.data();
+      console.log(users);
       setGives(users);
       for (const key in users) {
         const docRef = doc(store, "users", key);
@@ -55,6 +77,8 @@ function Book() {
 
   useEffect(() => {
     if (idUser) {
+      setGives([]);
+      setProfilesGives([]);
       getWhoGives();
     }
   }, [idUser]);
@@ -156,18 +180,20 @@ function Book() {
       )}
       <div className="book-details-container">
         <div className="cover-container">
-          <img className="cover" src={data?.imageLinks?.smallThumbnail} alt="cover" />
+          <img className="cover" src={data?.cover} alt="cover" />
         </div>
         <div className="details">
           <div className="title">
             <span>{data?.title}</span>
           </div>
           <div className="author">
-            <span>{data?.authors[0]}</span>
+            <span>{data?.author}</span>
           </div>
-          <div className="description">
-            <Markup content={data?.description} />
-          </div>
+          {data?.description ? (
+            <div className="description">
+              <Markup content={data.description} />
+            </div>
+          ) : null}
           <div className="buttons">
             {gives && gives[idUser] ? (
               <div className="btn1" onClick={giveBook}>
