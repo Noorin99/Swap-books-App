@@ -1,0 +1,59 @@
+.flow_circle {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--green);
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    font-size: var(--titles_med);
+    box-shadow: var(--shad_3);
+    z-index: 500;
+}
+
+.flow_circle:hover {
+    background-color: var(--green_hover);
+    box-shadow: var(--shad_4);
+}
+
+
+
+.bowl_pop_flow {
+    width: 200px;
+    background-color: var(--green);
+    height: 150px;
+    border-radius: 10px;
+    z-index: 500;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.line_Flow {
+    width: 90%;
+    height: 30%;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line_Flow.btn {
+    background-color: var(--accentColor);
+}
+
+.line_Flow svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--white);
+}

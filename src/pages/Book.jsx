@@ -17,64 +17,59 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 const STATUS = ["كالجديد", "ممتاز", "جيد جدا", "جيد", "قابل للاستخدام"];
 function Book() {
+  const { id: idUser, favorites = [], myGives = [] } = useSelector((state) => state.User);
   const [data, setData] = useState();
   const [showGive, setShowGive] = useState(false);
-  const { id } = useParams();
-  const { id: idUser, favorites = [], givesBooks = [] } = useSelector((state) => state.User);
-  const dispatch = useDispatch();
   const [status, setStatus] = useState("");
   const [gives, setGives] = useState();
   const [profilesGives, setProfilesGives] = useState([]);
   const [checkFav, setCheckFav] = useState(false);
-  const pathID = `no_${id.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
 
-  // console.log({
-  //   pathID,
-  //   id,
-  // });
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  let idBook = id.toLowerCase();
 
+  // get book by id with google API for books
   const getBookApi = async () => {
     const { data } = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
-
     let log = {
       cover: data?.volumeInfo?.imageLinks?.smallThumbnail,
       title: data?.volumeInfo?.title,
       author: data?.volumeInfo?.authors[0],
-      description: data?.volumeInfo?.description,
+      description: data?.volumeInfo?.description || "",
     };
     setData(log);
   };
 
+  // call first api then check firebase if not found there
   const getBookToggle = async () => {
-    let test = await getBookApi().catch(async () => {
-      console.log("===");
+    await getBookApi().catch(async () => {
       // check now on firebase
-      const docSnap = await getDoc(doc(store, "books", pathID));
-      console.log(docSnap.data());
+      const docSnap = await getDoc(doc(store, "books", idBook));
       setData(docSnap.data());
     });
   };
+
+  // call fun that check if book available on firebase or api
   useEffect(() => {
-    getBookToggle();
-  }, []);
+    if (idBook) getBookToggle();
+  }, [idBook]);
 
+  // get users who can give this book
   const getWhoGives = async () => {
-    const docRef = doc(store, "books", pathID);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      let { users } = docSnap.data();
-      console.log(users);
-      setGives(users);
-      for (const key in users) {
-        const docRef = doc(store, "users", key);
-        const docSnap = await getDoc(docRef);
-        let data = { id: docSnap.id, ...docSnap.data(), status: users[key] };
-        setProfilesGives((prev) => [...prev, data]);
-      }
+    const docRef = doc(store, "books", idBook);
+    const docSnap = (await getDoc(docRef)) || {};
+    let { users } = docSnap.data();
+    setGives(users);
+    for (const key in users) {
+      const docRef = doc(store, "users", key);
+      const docSnap = await getDoc(docRef);
+      let data = { id: docSnap.id, ...docSnap.data(), status: users[key] };
+      setProfilesGives((prev) => [...prev, data]);
     }
   };
 
+  // to call and check book and users gives
   useEffect(() => {
     if (idUser) {
       setGives([]);
@@ -83,6 +78,7 @@ function Book() {
     }
   }, [idUser]);
 
+  // toggle book to user favorites
   const addToFavorite = async () => {
     if (!idUser) {
       setCheckFav(true);
@@ -90,11 +86,8 @@ function Book() {
       setCheckFav(false);
       let oldFav = favorites || [];
       let latest = [];
-      if (oldFav.includes(pathID)) {
-        latest = oldFav.filter((e) => e !== pathID);
-      } else {
-        latest = [...oldFav, pathID];
-      }
+      if (oldFav.includes(idBook)) latest = oldFav.filter((e) => e !== idBook);
+      else latest = [...oldFav, idBook];
       const upData = doc(store, "users", idUser);
       await updateDoc(upData, { favorites: latest }).then(async () => {
         const docSnap = await getDoc(upData);
@@ -103,61 +96,38 @@ function Book() {
     }
   };
 
+  // update this book with this user
   const updateUserGives = async () => {
-    let newGives = [...givesBooks, pathID];
-    const docRef = doc(store, "users", idUser);
-    await updateDoc(docRef, { givesBooks: newGives }).then(() => {
+    let newGives = [];
+    if (myGives.includes(idBook)) newGives = myGives.filter((e) => e !== idBook);
+    else newGives = [...myGives, idBook];
+    await updateDoc(doc(store, "users", idUser), { myGives: newGives }).then(() => {
+      dispatch(setUserStore({ myGives: newGives }));
       setProfilesGives([]);
       getWhoGives();
     });
   };
 
-  const deleteGiveUser = async () => {
-    let newGives = givesBooks.filter((e) => e !== pathID);
-    const docRef = doc(store, "users", idUser);
-    await updateDoc(docRef, { givesBooks: newGives }).then(() => {
-      setProfilesGives([]);
-      getWhoGives();
-    });
-  };
-
+  // add or update book on firebase
   const giveBook = async () => {
-    let logBook = {
-      id,
-      title: data?.title,
-      cover: data?.imageLinks?.smallThumbnail,
-      author: data?.authors[0],
-      description: data?.description || " ",
-    };
-
-    // check if book exists
-    const docRef = doc(store, "books", pathID);
+    const docRef = doc(store, "books", idBook);
     const docSnap = await getDoc(docRef);
-
     try {
       if (docSnap.exists()) {
-        let { users } = docSnap.data();
-        if (users[idUser]) {
-          let newUsers = users;
-          delete newUsers[idUser];
-          await updateDoc(docRef, { ...logBook, users: newUsers }).then(() => {
-            setGives(newUsers);
-            setShowGive(false);
-            deleteGiveUser();
-          });
-        } else {
-          let newUsers = { ...users, [idUser]: status };
-          await updateDoc(docRef, { ...logBook, users: newUsers }).then(() => {
-            setGives(newUsers);
-            setShowGive(false);
-            updateUserGives();
-          });
-        }
+        let { users } = docSnap.data() || {};
+        let oldUsers = users || {};
+        if (oldUsers[idUser]) delete oldUsers[idUser];
+        else oldUsers = { ...oldUsers, [idUser]: status };
+
+        let log = { id: idBook, ...data, users: oldUsers };
+        await updateDoc(docRef, log).then(() => {
+          setGives(oldUsers);
+          setShowGive(false);
+          updateUserGives();
+        });
       } else {
-        await setDoc(doc(store, "books", pathID), {
-          ...logBook,
-          users: { [idUser]: status },
-        }).then(() => {
+        let log = { id: idBook, ...data, users: { [idUser]: status } };
+        await setDoc(doc(store, "books", idBook), log).then(() => {
           setGives([{ [idUser]: status }]);
           setShowGive(false);
           updateUserGives();
@@ -204,7 +174,7 @@ function Book() {
                 أعط الكتاب <HelpOutlineIcon />
               </div>
             )}
-            {favorites && favorites.includes(pathID) ? (
+            {favorites && favorites.includes(idBook) ? (
               <button className="btn2" onClick={addToFavorite}>
                 ازالة من للمفضلة <FavoriteIcon color="error" />
               </button>
@@ -232,9 +202,9 @@ function Book() {
         <div className="users">
           {profilesGives.length ? (
             profilesGives.map(({ id, avatar, fname, city, status }) => (
-              <div className="user" key={id}>
-                <div className="avatar">
-                  <img className="avatar2" src={avatar} alt="Avatar" />
+              <Link to={`/profile/${id}`} className="user" key={id}>
+                <div>
+                  <img className="avatar_who_gives" src={avatar} alt="Avatar" />
                 </div>
                 <div className="name">
                   <span>{fname}</span>
@@ -247,10 +217,8 @@ function Book() {
                   <LocationOnIcon />
                   <div className="status">{city}</div>
                 </div>
-                <Link to={`/profile/${id}`} className="contact-button">
-                  شاهد الملف الشخصي
-                </Link>
-              </div>
+                <div className="contact-button">شاهد الملف الشخصي</div>
+              </Link>
             ))
           ) : (
             <div className="valid_books">لا يوجد كتب متوفرة</div>

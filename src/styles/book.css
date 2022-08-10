@@ -28,15 +28,13 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: var(--sub_title);
   color: #0d4e32;
 }
 
 .author {
   font-weight: 700;
 }
-
-
 
 .buttons {
   display: flex;
@@ -99,12 +97,21 @@
   justify-content: space-between;
   align-items: center;
   color: black;
+  background-color: var(--eee);
+  padding: 5px;
+  border-radius: 10px;
+  box-shadow: var(--shad_3);
 }
 
-.avatar2 {
+.user:hover {
+  background-color: var(--eeeH);
+}
+
+.avatar_who_gives {
   width: 100px;
   height: 100px;
   border-radius: 50%;
+  box-shadow: var(--shad_3);
 }
 
 .quality {
@@ -122,13 +129,13 @@
 .contact-button {
   background-color: #5630c1;
   color: white;
-  width: 15%;
+  width: 180px;
   height: 40px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  box-shadow: var(--shad_3);
 }
 
 .dialog-title {
@@ -145,14 +152,12 @@
   height: 200px;
 }
 
-
 .dialog-title-sub2 a {
   background-color: #00a560;
   padding: 10px 25px;
   border-radius: 30px;
   color: #fff;
 }
-
 
 .book-status {
   font-size: 0.9rem;
@@ -162,6 +167,14 @@
 
 .give-book-btn {
   background-color: #00a560;
+}
+
+.description {
+  font-size: 0.8rem;
+  max-height: 250px;
+  overflow: auto;
+  width: 80%;
+  padding-left: 20px;
 }
 
 /* Responsive */
@@ -187,30 +200,28 @@
     align-items: center;
   }
 
-
   .buttons {
     width: 95%;
   }
 
-  .avatar2 {
+  .avatar_who_gives {
     width: 50px;
     height: 50px;
   }
 
-  .user {
-    font-size: 0.7rem;
-  }
 
-  .contact-button {
-    width: 32%;
-    font-size: 0.6rem;
+
+
+}
+
+@media only screen and (max-width: 600px) {
+  .title {
+    text-align: center;
   }
 }
 
-.description {
-  font-size: 0.8rem;
-  max-height: 250px;
-  overflow: auto;
-  width: 80%;
-  padding-left: 20px;
+@media only screen and (max-width: 500px) {
+  .contact-button {
+    display: none;
+  }
 }

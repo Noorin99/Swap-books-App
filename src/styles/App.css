@@ -17,6 +17,8 @@
   --gray: #a09c9c;
   --white: #ffffff;
   --accentColor: #5630c1;
+  --eee: #eee;
+  --eeeH: rgb(231, 231, 231);
 
   /* colors with hover */
 
@@ -30,6 +32,7 @@
   --titles_med: 1.9rem;
   --sub_title: 1.5rem;
   --sub_text: 1.2rem;
+  --text: 1rem;
 
   /* shadow */
   --shad_3: 0 1px 6px rgba(0, 0, 0, 0.164);
@@ -44,12 +47,10 @@ body {
   font-family: var(--cairo);
 }
 
-
 a {
   color: var(--black);
   text-decoration: none;
 }
-
 
 img {
   width: 100%;
@@ -57,12 +58,10 @@ img {
   object-fit: cover;
 }
 
-
 main {
   margin-top: 13vh;
   min-height: 88vh;
 }
-
 
 button {
   outline: none;
@@ -73,11 +72,10 @@ button {
   height: 100%;
 }
 
-
-
 @media screen and (max-width: 1000px) {
   :root {
     --titles: 2rem;
+    --sub_text: 1.1rem;
   }
 }
 

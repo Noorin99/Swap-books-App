@@ -5,8 +5,8 @@ import { ReactComponent as Logo } from "../assets/icons/Logo.svg";
 function Footer() {
   return (
     <footer>
-      <Link  to="/">
-        <Logo className="logo_footer"/>
+      <Link to="/">
+        <Logo className="logo_footer" />
       </Link>
       <div className="menu_ffoter">
         <Link to="/">من نحن؟</Link>

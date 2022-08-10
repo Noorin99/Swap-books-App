@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { setUserStore } from "./stores/User";
 import { doc, getDoc } from "firebase/firestore";
 import "./styles";
+import Flow from "./components/Flow";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -48,6 +49,7 @@ function App() {
 
   return (
     <Router>
+      <Flow />
       <Nav />
       <main>
         <Routes>

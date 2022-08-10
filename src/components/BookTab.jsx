@@ -5,7 +5,7 @@ import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import { TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { store } from "../firebase/config";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
@@ -18,16 +18,16 @@ function BookTab() {
   const [fbooks, setfBooks] = useState([]);
   const [books, setBooks] = useState([]);
   const navigate = useNavigate();
-  const { id, givesBooks = [], favorites = [] } = useSelector((state) => state.User);
+  const { id, myGives = [], favorites = [] } = useSelector((state) => state.User);
 
   // to get all the books from gives
   const getGives = async () => {
     let arr = [];
-    givesBooks.forEach(async (e) => {
+    myGives.forEach(async (e) => {
       const docRef = doc(store, "books", e);
       const docSnap = await getDoc(docRef);
       arr.push({ ...docSnap.data(), id: docSnap.id });
-      if (arr.length === givesBooks.length) {
+      if (arr.length === myGives.length) {
         setBooks(arr);
       }
     });
@@ -82,14 +82,14 @@ function BookTab() {
   };
 
   const deleteFromGives = async (idBook) => {
-    let newGives = givesBooks.filter((e) => e !== idBook);
+    let newGives = myGives.filter((e) => e !== idBook);
     let newGivesState = books.filter((e) => e.id !== idBook);
     let usersBook = books.filter((e) => e.id === idBook);
     usersBook = usersBook.users || {};
     delete usersBook[idBook];
     setBooks(newGivesState);
     const docRef = doc(store, "users", id);
-    await updateDoc(docRef, { givesBooks: newGives }).then(async () => {
+    await updateDoc(docRef, { myGives: newGives }).then(async () => {
       const docBook = doc(store, "books", idBook);
       await updateDoc(docBook, { users: usersBook });
     });
@@ -108,6 +108,7 @@ function BookTab() {
             onChange={(event, newValue) => {
               setValue(newValue);
             }}
+            className="bowl_tab_pof"
             indicatorColor="secondary"
             textColor="primary">
             <Tab className="tab_profile" label="أضف كتاباً" value="0" />
@@ -152,35 +153,41 @@ function BookTab() {
           </div>
         </TabPanel>
         <TabPanel value="1">
-          <div className="favBooks">
+          <div className="bowl_books_Tabs">
             {books?.length
               ? books.map((book) => (
-                  <div className="singleBook" key={book.id}>
+                  <Link to={`/book/${book.id}`} className="singleBook" key={book.id}>
                     <div className="cover_book_profile">
                       <img src={book.cover} alt={book.title} className="bookImg" />
+                    </div>
+                    <div className="tilte_book_Tabs_pof">
+                      <span>{book.title}</span>
                     </div>
                     <button
                       className="delete_favorite_profile"
                       onClick={() => deleteFromGives(book.id)}>
                       حذف
                     </button>
-                  </div>
+                  </Link>
                 ))
               : null}
           </div>
         </TabPanel>
         <TabPanel value="2">
           {/* Each child in a list should have a unique "key" prop. */}
-          <div className="favBooks">
+          <div className="bowl_books_Tabs">
             {fbooks.map((book) => (
-              <div className="singleBook" key={book.id}>
+              <Link to={`/book/${book.id}`} className="singleBook" key={book.id}>
                 <div className="cover_book_profile">
                   <img src={book.cover} alt={book.title} />
+                </div>
+                <div className="tilte_book_Tabs_pof">
+                  <span>{book.title}</span>
                 </div>
                 <button className="delete_favorite_profile" onClick={() => deleteFbooks(book.id)}>
                   حذف
                 </button>
-              </div>
+              </Link>
             ))}
           </div>
         </TabPanel>
