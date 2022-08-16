@@ -74,9 +74,7 @@ function AddBook() {
     } else {
       setErrorMessage("");
       setLoaderUp(true);
-
-      let isbnSpaces = isbn.replace(/\s/g, "").toLowerCase();
-      const pathID = `no_${isbnSpaces.replace(/([^a-z0-9.]+)/gi, "")}`;
+      let pathID = isbn.toLowerCase();
       const refBook = doc(store, "books", pathID);
       const docSnap = await getDoc(refBook);
       if (docSnap.exists()) {
@@ -85,7 +83,7 @@ function AddBook() {
         await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
           let users = { ...docSnap.data().users, [idUser]: status };
           await updateDoc(refBook, { users }).then(() => {
-            location.assign(`/book/${isbnSpaces}`);
+            location.assign(`/book/${pathID}`);
           });
         });
       } else {
@@ -115,7 +113,7 @@ function AddBook() {
               await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
                 let users = { [idUser]: status };
                 await updateDoc(refBook, { users }).then(() => {
-                  location.assign(`/book/${isbnSpaces}`);
+                  location.assign(`/book/${pathID}`);
                 });
               });
             });

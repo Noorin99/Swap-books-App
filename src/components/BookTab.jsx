@@ -66,7 +66,7 @@ function BookTab() {
     let state = await checkIfFound();
     console.log(state);
     if (state) return navigate(`/book/${search}`);
-    let isbn = `no_${search.replace(/([^a-z0-9.]+)/gi, "").toLowerCase()}`;
+    let isbn = search.toLowerCase();
     const docRef = doc(store, "books", isbn);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) return navigate(`/book/${search}`);

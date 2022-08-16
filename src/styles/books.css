@@ -4,9 +4,6 @@
     margin-top: 30px;
 }
 
-
-
-
 .bowl_in_filter {
     width: 160px;
 }
@@ -47,11 +44,10 @@
         flex-direction: column;
         align-items: center;
     }
+
     .bowl_in_filter {
         width: 90%;
         margin-top: 15px !important;
     }
-    
+
 }
-
-

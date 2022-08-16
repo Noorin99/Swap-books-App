@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
@@ -24,6 +24,8 @@ function Book() {
   const [gives, setGives] = useState();
   const [profilesGives, setProfilesGives] = useState([]);
   const [checkFav, setCheckFav] = useState(false);
+  const [isGoLogin, setIsGoLogin] = useState(false);
+  const navigate = useNavigate();
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -138,16 +140,25 @@ function Book() {
     }
   };
 
+  const checkMove = (idBook) => {
+    if (idUser) {
+      setIsGoLogin(false);
+      navigate(`/profile/${idBook}`);
+    } else {
+      setIsGoLogin(true);
+    }
+  };
+
   return (
     <div className="container">
-      {checkFav && (
+      {checkFav || isGoLogin ? (
         <Dialog disableEscapeKeyDown open={true} onClose={() => setCheckFav(false)}>
           <div className="dialog-title-sub2">
             <DialogTitle>يرجى تسجيل الدخول اولا الى حسابك!</DialogTitle>
             <Link to="/login">تسجيل الدخول الان</Link>
           </div>
         </Dialog>
-      )}
+      ) : null}
       <div className="book-details-container">
         <div className="cover-container">
           <img className="cover" src={data?.cover} alt="cover" />
@@ -202,7 +213,7 @@ function Book() {
         <div className="users">
           {profilesGives.length ? (
             profilesGives.map(({ id, avatar, fname, city, status }) => (
-              <Link to={`/profile/${id}`} className="user" key={id}>
+              <div onClick={() => checkMove(id)} className="user" key={id}>
                 <div>
                   <img className="avatar_who_gives" src={avatar} alt="Avatar" />
                 </div>
@@ -218,7 +229,7 @@ function Book() {
                   <div className="status">{city}</div>
                 </div>
                 <div className="contact-button">شاهد الملف الشخصي</div>
-              </Link>
+              </div>
             ))
           ) : (
             <div className="valid_books">لا يوجد كتب متوفرة</div>

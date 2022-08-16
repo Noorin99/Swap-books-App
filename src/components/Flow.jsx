@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Flow() {
+  const { id } = useSelector((state) => state.User);
   const [open, setOpen] = useState(true);
   return open ? (
     <div onClick={() => setOpen(!open)} className="flow_circle">
@@ -12,7 +14,7 @@ function Flow() {
       <Link onClick={() => setOpen(!open)} className="line_Flow" to="/books">
         البحث عن كتاب
       </Link>
-      <Link onClick={() => setOpen(!open)} className="line_Flow" to="/AddBook">
+      <Link onClick={() => setOpen(!open)} className="line_Flow" to={id ? "/AddBook" : "/login"}>
         اعطاء كتاب
       </Link>
       <button onClick={() => setOpen(!open)} className="line_Flow btn">

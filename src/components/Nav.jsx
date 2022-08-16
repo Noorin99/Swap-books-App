@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import flowernav from "../assets/icons/flowernav.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/icons/Logo.svg";
-import { ReactComponent as Backmenuflow } from "../assets/icons/backmenuflow.svg";
-import { ReactComponent as Menu } from "../assets/icons/menu.svg";
 import { ReactComponent as Menu2 } from "../assets/icons/menu2.svg";
 import { useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/config";
 import PopAvatar from "./PopAvatar";
 
 function Nav() {
@@ -13,6 +13,7 @@ function Nav() {
   const [width, setWidth] = useState(0);
   const [show, setShow] = useState(false);
   let navigate = useNavigate();
+  let noAVatar = "https://hope.be/wp-content/uploads/2015/05/no-user-image.gif";
 
   useEffect(() => {
     setWidth(window.innerWidth);
@@ -26,6 +27,15 @@ function Nav() {
     navigate(to);
   };
 
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        location.replace("/login");
+      })
+      .catch((error) => {
+        console.log("An error happened.", error);
+      });
+  };
   return width > 700 ? (
     <nav>
       <Link to="/" className="molhem_logo">
@@ -38,11 +48,9 @@ function Nav() {
         <Link className="header_elements" to="/">
           <span>الصفحة الرئيسية</span>
         </Link>
-        {id && (
-          <Link className="header_elements" to="/AddBook">
-            <span>أعط كتاب</span>
-          </Link>
-        )}
+        <Link className="header_elements" to={id ? "/AddBook" : "/login"}>
+          <span>أعط كتاب</span>
+        </Link>
         <Link className="header_elements" to="/books">
           <span>ابحث عن كتب</span>
         </Link>
@@ -55,6 +63,7 @@ function Nav() {
           </Link>
         )}
       </div>
+
       {id ? (
         <PopAvatar avatar={avatar} />
       ) : (
@@ -74,11 +83,16 @@ function Nav() {
           <span>ملهــم </span>
         </div>
       </Link>
-      {id ? (
-        <PopAvatar avatar={avatar} />
-      ) : (
-        <Menu2 onClick={() => setShow(true)} className="menu_toggle" />
-      )}
+      <div onClick={() => setShow(true)}>
+        {id ? (
+          <div className="bowl_avatar_nav">
+            <img src={avatar || noAVatar} alt="" />
+          </div>
+        ) : (
+          <Menu2 className="menu_toggle" />
+        )}
+      </div>
+
       {show ? (
         <div className="pop_menu">
           <div className="content_pop_menu">
@@ -102,24 +116,27 @@ function Nav() {
             <div style={{ "--i": "2" }} className="profile_mode_line" onClick={() => routeTo("/")}>
               <span>الصفحة الرئيسية</span>
             </div>
-            {id && (
-              <div
-                style={{ "--i": "3" }}
-                className="profile_mode_line"
-                onClick={() => routeTo("/AddBook")}>
-                <span>أعط كتاب</span>
-              </div>
-            )}
+            <div
+              style={{ "--i": "3" }}
+              className="profile_mode_line"
+              onClick={id ? () => routeTo("/AddBook") : () => routeTo("/login")}>
+              <span>أعط كتاب</span>
+            </div>
             <div
               style={{ "--i": "4" }}
               className="profile_mode_line"
               onClick={() => routeTo("/books")}>
               <span>ابحث عن كتب</span>
             </div>
+
             <div style={{ "--i": "5" }} className="profile_mode_line" onClick={() => routeTo("/")}>
               <span>من نحن؟</span>
             </div>
-            {!id && (
+            {id ? (
+              <div style={{ "--i": "6" }} className="profile_mode_line" onClick={logout}>
+                <span> تسجيل الخروج </span>
+              </div>
+            ) : (
               <div
                 style={{ "--i": "6" }}
                 className="profile_mode_line"
