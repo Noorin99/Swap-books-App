@@ -34,10 +34,11 @@ function Book() {
   // get book by id with google API for books
   const getBookApi = async () => {
     const { data } = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
+    console.log(data.volumeInfo);
     let log = {
       cover: data?.volumeInfo?.imageLinks?.smallThumbnail,
       title: data?.volumeInfo?.title,
-      author: data?.volumeInfo?.authors[0],
+      author: data?.volumeInfo?.authors ? data?.volumeInfo?.authors[0] : "",
       description: data?.volumeInfo?.description || "",
     };
     setData(log);
@@ -47,6 +48,7 @@ function Book() {
   const getBookToggle = async () => {
     await getBookApi().catch(async () => {
       // check now on firebase
+      console.log("no found on google api");
       const docSnap = await getDoc(doc(store, "books", idBook));
       setData(docSnap.data());
     });
@@ -73,12 +75,10 @@ function Book() {
 
   // to call and check book and users gives
   useEffect(() => {
-    if (idUser) {
-      setGives([]);
-      setProfilesGives([]);
-      getWhoGives();
-    }
-  }, [idUser]);
+    setGives([]);
+    setProfilesGives([]);
+    getWhoGives();
+  }, []);
 
   // toggle book to user favorites
   const addToFavorite = async () => {

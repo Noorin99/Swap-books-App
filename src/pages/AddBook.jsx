@@ -53,7 +53,7 @@ function AddBook() {
   const [coverEvent, setCoverEvent] = useState();
   const [loaderUp, setLoaderUp] = useState(false);
 
-  const { id: idUser, givesBooks = [] } = useSelector((state) => state.User);
+  const { id: idUser, myGives = [] } = useSelector((state) => state.User);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleaddbook = async (e) => {
@@ -74,13 +74,13 @@ function AddBook() {
     } else {
       setErrorMessage("");
       setLoaderUp(true);
-      let pathID = isbn.toLowerCase();
+      let pathID = isbn.replace(/\s/g, "").toLowerCase();
       const refBook = doc(store, "books", pathID);
       const docSnap = await getDoc(refBook);
       if (docSnap.exists()) {
-        let newGives = [...givesBooks, pathID];
+        let newGives = [...myGives, pathID];
         const refUser = doc(store, "users", idUser);
-        await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
+        await updateDoc(refUser, { myGives: newGives }).then(async () => {
           let users = { ...docSnap.data().users, [idUser]: status };
           await updateDoc(refBook, { users }).then(() => {
             location.assign(`/book/${pathID}`);
@@ -108,9 +108,9 @@ function AddBook() {
               cover: imgPath,
               id: pathID,
             }).then(async () => {
-              let newGives = [...givesBooks, pathID];
+              let newGives = [...myGives, pathID];
               const refUser = doc(store, "users", idUser);
-              await updateDoc(refUser, { givesBooks: newGives }).then(async () => {
+              await updateDoc(refUser, { myGives: newGives }).then(async () => {
                 let users = { [idUser]: status };
                 await updateDoc(refBook, { users }).then(() => {
                   location.assign(`/book/${pathID}`);

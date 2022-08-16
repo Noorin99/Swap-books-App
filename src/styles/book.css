@@ -27,6 +27,13 @@
   gap: 10px;
 }
 
+.valid_books {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .title {
   font-size: var(--sub_title);
   color: #0d4e32;
@@ -200,17 +207,10 @@
     align-items: center;
   }
 
-  .buttons {
-    width: 95%;
-  }
-
   .avatar_who_gives {
     width: 50px;
     height: 50px;
   }
-
-
-
 
 }
 
@@ -223,5 +223,9 @@
 @media only screen and (max-width: 500px) {
   .contact-button {
     display: none;
+  }
+
+  .buttons {
+    width: 100%;
   }
 }
