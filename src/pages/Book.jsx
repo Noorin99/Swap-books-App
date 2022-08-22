@@ -29,17 +29,18 @@ function Book() {
 
   const { id } = useParams();
   const dispatch = useDispatch();
-  let idBook = id.toLowerCase();
+  let idBook = id;
 
   // get book by id with google API for books
   const getBookApi = async () => {
     const { data } = await axios(`https://www.googleapis.com/books/v1/volumes/${id}`);
-    console.log(data.volumeInfo);
+    let { language, imageLinks, title, authors, description } = data.volumeInfo;
     let log = {
-      cover: data?.volumeInfo?.imageLinks?.smallThumbnail,
-      title: data?.volumeInfo?.title,
-      author: data?.volumeInfo?.authors ? data?.volumeInfo?.authors[0] : "",
-      description: data?.volumeInfo?.description || "",
+      language,
+      cover: imageLinks?.smallThumbnail,
+      title,
+      author: authors ? authors[0] : "",
+      description: description || "",
     };
     setData(log);
   };
@@ -48,7 +49,6 @@ function Book() {
   const getBookToggle = async () => {
     await getBookApi().catch(async () => {
       // check now on firebase
-      console.log("no found on google api");
       const docSnap = await getDoc(doc(store, "books", idBook));
       setData(docSnap.data());
     });
@@ -62,8 +62,8 @@ function Book() {
   // get users who can give this book
   const getWhoGives = async () => {
     const docRef = doc(store, "books", idBook);
-    const docSnap = (await getDoc(docRef)) || {};
-    let { users } = docSnap.data();
+    const docSnap = await getDoc(docRef);
+    let { users } = docSnap.data() || {};
     setGives(users);
     for (const key in users) {
       const docRef = doc(store, "users", key);

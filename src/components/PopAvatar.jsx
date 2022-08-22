@@ -9,7 +9,6 @@ function PopAvatar({ avatar }) {
   const logout = () => {
     signOut(auth)
       .then(() => {
-        console.log("Gg");
         location.replace("/login");
       })
       .catch((error) => {

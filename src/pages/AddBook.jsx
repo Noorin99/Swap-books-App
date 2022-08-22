@@ -29,12 +29,8 @@ const Input = styled("input")({
 });
 
 const languageList = [
-  "اللغة العربية",
-  "اللغة الإنجليزية",
-  "اللغة الألمانية",
-  "اللغة التشيكية",
-  "اللغة الإستريتية",
-  "اللغة الإسبانية",
+  { label: "اللغة العربية", code: "ar" },
+  { label: "اللغة الإنجليزية", code: "en" },
 ];
 
 const categoryList = ["الخيال", "التاريخ", "القصص القصيرة", "القصص الطويلة", "الروايات", "الأدب"];
@@ -52,7 +48,6 @@ function AddBook() {
   });
   const [coverEvent, setCoverEvent] = useState();
   const [loaderUp, setLoaderUp] = useState(false);
-
   const { id: idUser, myGives = [] } = useSelector((state) => state.User);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -74,7 +69,7 @@ function AddBook() {
     } else {
       setErrorMessage("");
       setLoaderUp(true);
-      let pathID = isbn.replace(/\s/g, "").toLowerCase();
+      let pathID = isbn.replace(/\s/g, "");
       const refBook = doc(store, "books", pathID);
       const docSnap = await getDoc(refBook);
       if (docSnap.exists()) {
@@ -87,8 +82,6 @@ function AddBook() {
           });
         });
       } else {
-        console.log(coverEvent);
-        console.log(coverEvent.name);
         const path = `covers/${Date.now()}_${coverEvent.name.replace(/([^a-z0-9.]+)/gi, "")}`;
         let fileRef = ref(storage, path);
         const upload = uploadBytesResumable(fileRef, coverEvent);
@@ -160,8 +153,8 @@ function AddBook() {
               options={languageList}
               className="textfield_Addbook"
               renderInput={(params) => <TextField {...params} label="لغة الكتاب" />}
-              onChange={(event, newValue) => {
-                setBook({ ...books, language: newValue });
+              onChange={(event, { code }) => {
+                setBook({ ...books, language: code });
               }}
             />
             <Autocomplete

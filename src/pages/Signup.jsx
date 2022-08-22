@@ -43,7 +43,6 @@ function Signup() {
       .then(async ({ user }) => {
         const { uid, displayName, email, photoURL } = user;
         let docSnap = await getDoc(doc(store, "users", uid));
-        console.log(docSnap.exists());
         if (docSnap.exists()) {
           location.assign("/profile");
         } else {

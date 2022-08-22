@@ -4,7 +4,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import { store } from "../firebase/config";
-import { collection, getDocs, limit, query } from "firebase/firestore";
+import { collection, getDocs, limit, query, where } from "firebase/firestore";
 
 function Books() {
   const [querySearch, setQuerySearch] = useState("");
@@ -21,9 +21,20 @@ function Books() {
       : lng === "ar"
       ? "كتب"
       : "books";
+
     try {
+      const citiesRef = collection(store, "books");
+      const q = categories
+        ? query(citiesRef, where("language", "==", lng), where("category", "==", categories))
+        : query(citiesRef, where("language", "==", lng));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        let { cover, title, id } = doc.data();
+        let log = { cover, title, id };
+        setData((prev) => [...prev, log]);
+      });
+
       let URL = `https://www.googleapis.com/books/v1/volumes?q=${value}&langRestrict=${lng}&key=AIzaSyBcd2dek9-5LPhIii3Y1mjr867aFfz2-gI&maxResults=25`;
-      console.log(URL);
       let { data } = await axios.get(URL);
       let arr = [];
       data?.items.forEach((e) => {
@@ -35,8 +46,8 @@ function Books() {
         arr.push(log);
       });
       setData((prev) => [...prev, ...arr]);
-    } catch {
-      console.log("error");
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -85,8 +96,8 @@ function Books() {
             value={lang}
             label="اللغة"
             onChange={(e) => setLang(e.target.value)}>
-            <MenuItem value="en">En</MenuItem>
-            <MenuItem value="ar">Ar</MenuItem>
+            <MenuItem value="en">الانجليزية</MenuItem>
+            <MenuItem value="ar">العربية</MenuItem>
           </Select>
         </FormControl>
 
@@ -98,17 +109,19 @@ function Books() {
             value={categories}
             label="فئة الكتاب"
             onChange={(e) => setCategories(e.target.value)}>
-            <MenuItem value="Young Adult Fiction">Young Adult Fiction</MenuItem>
-            <MenuItem value="Juvenile Fiction">Juvenile Fiction</MenuItem>
-            <MenuItem value="Fiction">Fiction</MenuItem>
-            <MenuItem value="Computers">Computers</MenuItem>
+            <MenuItem value="الخيال">الخيال</MenuItem>
+            <MenuItem value="التاريخ">التاريخ</MenuItem>
+            <MenuItem value="الروايات">الروايات</MenuItem>
+            <MenuItem value="الأدب">الأدب</MenuItem>
+            <MenuItem value="القصص القصيرة">القصص القصيرة</MenuItem>
+            <MenuItem value="القصص الطويلة">القصص الطويلة</MenuItem>
           </Select>
         </FormControl>
       </form>
 
       <div className="bowl_cards_filter">
-        {data.map((book) => (
-          <Link to={`/book/${book.id}`} className="card_filter_book" key={book.id}>
+        {data.map((book, i) => (
+          <Link to={`/book/${book.id}`} className="card_filter_book" key={i}>
             <div className="cover_book_filter">
               <img src={book.cover} alt={book?.title} />
             </div>

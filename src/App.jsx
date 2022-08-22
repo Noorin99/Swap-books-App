@@ -34,10 +34,10 @@ function App() {
           setLogged(true);
           if (avatar && description && city && fname && (instagram || facebook || twitter)) {
             dispatch(setUserStore({ id: user.uid, ...docSnap.data(), profile: true }));
-            console.log("profile completed");
+            // console.log("profile completed");
           } else {
             dispatch(setUserStore({ id: user.uid, ...docSnap.data(), profile: false }));
-            console.log("profile not completed");
+            // console.log("profile not completed");
           }
         }
       } else {

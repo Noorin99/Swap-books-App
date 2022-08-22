@@ -22,7 +22,6 @@ function ModalEdit({ setShowEdit }) {
 
   useEffect(() => {
     setData(user);
-    console.log(user);
   }, [user]);
 
   const onFinish = async (e) => {
@@ -37,7 +36,6 @@ function ModalEdit({ setShowEdit }) {
     ) {
       setIsValid(false);
       uploadAvatar();
-      console.log("done");
     } else {
       setIsValid(true);
     }
@@ -59,7 +57,6 @@ function ModalEdit({ setShowEdit }) {
         },
         async () => {
           let imgPath = await getDownloadURL(upload.snapshot.ref);
-          console.log(imgPath);
           updateData(imgPath);
         }
       );

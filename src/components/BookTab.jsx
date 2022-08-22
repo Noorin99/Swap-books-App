@@ -64,10 +64,8 @@ function BookTab() {
 
   const searchBook = async () => {
     let state = await checkIfFound();
-    console.log(state);
     if (state) return navigate(`/book/${search}`);
-    let isbn = search.toLowerCase();
-    const docRef = doc(store, "books", isbn);
+    const docRef = doc(store, "books", search);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) return navigate(`/book/${search}`);
     setIsSearch(true);

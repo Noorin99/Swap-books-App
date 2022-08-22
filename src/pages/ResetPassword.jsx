@@ -13,8 +13,7 @@ function ResetPassword() {
       alert("sent");
     })
     .catch((error) => {
-      const errorMessage = error.message;
-      console.log(errorMessage);
+      console.log(error.message);
     });
 
   return (

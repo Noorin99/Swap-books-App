@@ -37,11 +37,11 @@ function BookStatus({ setShowGive, giveBook, status, setStatus }) {
                   }}
                   input={<OutlinedInput label="Age" id="demo-dialog-native" />}>
                   <option aria-label="None" value="" />
-                  <option value={1}>كالجديد</option>
-                  <option value={2}>ممتاز</option>
-                  <option value={3}>جيد جدا</option>
-                  <option value={4}>جيد</option>
-                  <option value={5}>قابل للاستخدام</option>
+                  <option value={0}>كالجديد</option>
+                  <option value={1}>ممتاز</option>
+                  <option value={2}>جيد جدا</option>
+                  <option value={3}>جيد</option>
+                  <option value={4}>قابل للاستخدام</option>
                 </Select>
               </FormControl>
             </Box>
