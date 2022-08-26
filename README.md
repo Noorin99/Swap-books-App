@@ -10,7 +10,7 @@
 
 3- **I want to** filter the books by language and category, **so** I can find the suitable book for me.
 
-4-  **I want to** register to the platform by ( email / google / facebook ), **so** I can use the swapping feature.
+4-  **I want to** register to the platform by ( email / google), **so** I can use the swapping feature.
 
 
 ## **As a user**
@@ -32,7 +32,6 @@
 
 8- **I want to** visit the  user's profile who have a specific book, **so** I can get to know him/her better.
 
-
 9- **I want to** view with the book's owners contact information/location, **so** I can agree with him/her about swapping
 
 10- **I want to** add books to the favorite list, **so** I can save it for later times.
@@ -41,6 +40,6 @@
 
 12- **I want to** be notifed when I successfully add a book, **so** I can trust the platform.
 
-13- **I want to** post books by searching for the ISBN and clicking post, **so** I can offer it for swappers.
+13- **I want to** post books by searching for the ISBN and clicking post, **so** I can offer it for users.
 
-14- **I want to** apply a form of the book's information in case I couldn't find the wanted ISBN avaliable, **so** I can offer it for swappers.
+14- **I want to** apply a form of the book's information in case I couldn't find the wanted ISBN avaliable, **so** I can offer it for users.
